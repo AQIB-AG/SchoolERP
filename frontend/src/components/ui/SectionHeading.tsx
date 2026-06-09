@@ -28,7 +28,7 @@ export function SectionHeading({
         className,
       )}
     >
-      <h2 className="text-[32px] font-bold leading-tight text-text md:text-[40px]">
+      <h2 className="font-serif tracking-tight text-[36px] font-bold leading-tight text-text md:text-[46px]">
         {title}
       </h2>
       {subtitle && (

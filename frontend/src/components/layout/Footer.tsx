@@ -1,11 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { GraduationCap } from "lucide-react";
 import { motion } from "framer-motion";
 import { FOOTER_LINKS } from "@/data/footer";
 import { Container } from "@/components/ui/Container";
 
-// Custom inline SVG icons for social platforms to ensure build stability
+// Custom inline SVG icons for social platforms
 function TwitterIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className="h-4.5 w-4.5" {...props}>
@@ -22,34 +23,36 @@ function LinkedinIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-function FacebookIcon(props: React.SVGProps<SVGSVGElement>) {
+function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className="h-4.5 w-4.5" {...props}>
-      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4.5 w-4.5" {...props}>
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
     </svg>
   );
 }
 
 const socialLinkDetails = [
-  { label: "Twitter", href: "https://twitter.com", icon: TwitterIcon },
   { label: "LinkedIn", href: "https://linkedin.com", icon: LinkedinIcon },
-  { label: "Facebook", href: "https://facebook.com", icon: FacebookIcon },
+  { label: "Twitter", href: "https://twitter.com", icon: TwitterIcon },
+  { label: "Instagram", href: "https://instagram.com", icon: InstagramIcon },
 ];
 
 export function Footer() {
   return (
-    <footer className="relative border-t border-border/60 bg-slate-50 dark:bg-[#09090b] text-text transition-colors duration-300 py-16 overflow-hidden">
+    <footer className="relative border-t border-border/60 bg-surface-muted dark:bg-[#17201D] text-text transition-colors duration-300 py-16 overflow-hidden">
       {/* Background decorations */}
       <div className="absolute bottom-0 right-0 w-[400px] h-[300px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute top-0 left-[20%] w-[300px] h-[200px] bg-secondary/5 rounded-full blur-[80px] pointer-events-none" />
 
       <Container className="relative z-10">
-        <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-12">
+        <div className="grid gap-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-12">
           
-          {/* Logo & Description Column */}
-          <div className="lg:col-span-5 flex flex-col items-start gap-4">
-            <a
-              href="#"
+          {/* Logo & Description Column (Span 4) */}
+          <div className="lg:col-span-4 flex flex-col items-start gap-4">
+            <Link
+              href="/"
               className="flex items-center gap-2.5 text-xl font-bold group"
               aria-label="SchoolManager home"
             >
@@ -61,57 +64,40 @@ export function Footer() {
               >
                 <GraduationCap className="h-5.5 w-5.5" aria-hidden="true" />
               </motion.div>
-              <span className="font-extrabold bg-gradient-to-r from-text to-muted bg-clip-text text-transparent group-hover:from-primary group-hover:to-primary-hover transition-colors duration-300">
+              <span className="font-serif font-bold text-xl text-text group-hover:text-primary transition-colors duration-300">
                 SchoolManager
               </span>
-            </a>
+            </Link>
             
-            <p className="max-w-sm text-sm text-muted font-medium leading-relaxed">
-              The modern administrative workspace trusted by educational institutes worldwide. Simplifying ledgers, student tracking, and parent cooperation.
+            <p className="max-w-xs text-sm text-muted font-medium leading-relaxed">
+              The modern administrative workspace trusted by educational institutions worldwide. Simplifying billing ledgers, scheduling sheets, and parent engagement.
             </p>
           </div>
 
-          {/* Company Links Column */}
-          <div className="lg:col-span-2">
-            <h3 className="mb-4 text-xs font-black uppercase tracking-widest text-text">
-              Company
-            </h3>
-            <ul className="space-y-3">
-              {FOOTER_LINKS[0].links.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm font-semibold text-muted hover:text-primary transition-colors duration-200"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Dynamic Link Columns (Product, Company, Support) (Span 2 each) */}
+          {FOOTER_LINKS.map((group) => (
+            <div key={group.title} className="lg:col-span-2">
+              <h3 className="mb-4 text-xs font-bold uppercase tracking-widest text-text">
+                {group.title}
+              </h3>
+              <ul className="space-y-3">
+                {group.links.map((link) => (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      className="text-sm font-semibold text-muted hover:text-primary transition-colors duration-200"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
 
-          {/* Product Links Column */}
+          {/* Social Links Column (Span 2) */}
           <div className="lg:col-span-2">
-            <h3 className="mb-4 text-xs font-black uppercase tracking-widest text-text">
-              Product
-            </h3>
-            <ul className="space-y-3">
-              {FOOTER_LINKS[1].links.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm font-semibold text-muted hover:text-primary transition-colors duration-200"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Social Links Column */}
-          <div className="lg:col-span-3">
-            <h3 className="mb-4 text-xs font-black uppercase tracking-widest text-text">
+            <h3 className="mb-4 text-xs font-bold uppercase tracking-widest text-text">
               Social Links
             </h3>
             <ul className="space-y-3">
@@ -137,17 +123,17 @@ export function Footer() {
         </div>
 
         {/* Bottom copyright bar */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border/40 pt-8 md:flex-row text-xs font-bold text-muted">
+        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-border/40 pt-8 md:flex-row text-xs font-bold text-muted">
           <p>
             &copy; {new Date().getFullYear()} SchoolManager. All rights reserved.
           </p>
           <div className="flex gap-6">
-            <a href="#" className="hover:text-primary transition-colors duration-200">
+            <Link href="/" className="hover:text-primary transition-colors duration-200">
               Privacy Policy
-            </a>
-            <a href="#" className="hover:text-primary transition-colors duration-200">
+            </Link>
+            <Link href="/" className="hover:text-primary transition-colors duration-200">
               Terms of Service
-            </a>
+            </Link>
           </div>
         </div>
       </Container>

@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/shared/ThemeProvider";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/constants/site";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+import { Plus_Jakarta_Sans, Playfair_Display } from "next/font/google";
+
+const sans = Plus_Jakarta_Sans({
+  variable: "--font-sans",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const serif = Playfair_Display({
+  variable: "--font-serif",
   subsets: ["latin"],
   display: "swap",
 });
@@ -48,13 +55,15 @@ export const metadata: Metadata = {
   },
 };
 
+import { ClientLayoutWrapper } from "@/components/layout/ClientLayoutWrapper";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} scroll-smooth`} suppressHydrationWarning>
+    <html lang="en" className={`${sans.variable} ${serif.variable} scroll-smooth`} suppressHydrationWarning>
       <body className="min-h-screen bg-background text-text antialiased">
         <ThemeProvider>
           <a
@@ -63,7 +72,9 @@ export default function RootLayout({
           >
             Skip to content
           </a>
-          {children}
+          <ClientLayoutWrapper>
+            {children}
+          </ClientLayoutWrapper>
         </ThemeProvider>
       </body>
     </html>

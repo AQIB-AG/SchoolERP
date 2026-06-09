@@ -1,32 +1,32 @@
 @import "tailwindcss";
 
 :root {
-  --primary: #4f46e5; /* Accent Indigo */
-  --primary-hover: #4338ca;
-  --secondary: #10b981;
-  --secondary-hover: #059669;
-  --success: #10b981;
-  --background: #ffffff;
-  --surface: #f8fafc;
-  --surface-muted: #f1f5f9;
-  --text: #0f172a;
-  --muted: #475569;
-  --border: #e2e8f0;
-  --glow-color: rgba(79, 70, 229, 0.15);
+  --primary: #1F6E5A; /* Forest Green */
+  --primary-hover: #165243;
+  --secondary: #C9734F; /* Terracotta / Burnt Orange */
+  --secondary-hover: #B0603F;
+  --success: #1F6E5A;
+  --background: #FAF8F3; /* Warm Cream */
+  --surface: #FFFFFF; /* Surface White */
+  --surface-muted: #F3EFE6; /* Muted Cream */
+  --text: #222222; /* Charcoal Text */
+  --muted: #6B7280; /* Muted Gray */
+  --border: #E8E2D5; /* Warm Border */
+  --glow-color: rgba(31, 110, 90, 0.12);
 }
 
 .dark {
-  --primary: #4f46e5; /* Accent Indigo */
-  --primary-hover: #6366f1;
-  --secondary: #111827; /* Dark Secondary */
-  --success: #10b981;
-  --background: #09090b; /* Deep Premium Dark background */
-  --surface: #18181b; /* Card Dark background */
-  --surface-muted: #111827;
-  --text: #ffffff; /* Primary Text */
-  --muted: #a1a1aa; /* Secondary Text */
-  --border: rgba(255, 255, 255, 0.08); /* Border color */
-  --glow-color: rgba(79, 70, 229, 0.2);
+  --primary: #1F6E5A;
+  --primary-hover: #2E8B73;
+  --secondary: #C9734F;
+  --success: #1F6E5A;
+  --background: #141C19; /* Warm Dark Greenish Black */
+  --surface: #1E2824; /* Warm Dark Card */
+  --surface-muted: #17201D;
+  --text: #F5EFEB; /* Soft light text */
+  --muted: #9EABA5; /* Muted grey-green text */
+  --border: rgba(245, 239, 235, 0.08);
+  --glow-color: rgba(31, 110, 90, 0.2);
 }
 
 @theme inline {
@@ -41,7 +41,8 @@
   --color-text: var(--text);
   --color-muted: var(--muted);
   --color-border: var(--border);
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
 }
 
 /* Section Padding Audit Styles */

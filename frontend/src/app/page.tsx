@@ -1,9 +1,8 @@
 import dynamic from "next/dynamic";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
 import { TrustSection } from "@/components/sections/TrustSection";
 import { Features } from "@/components/sections/Features";
+import { DashboardShowcase } from "@/components/sections/DashboardShowcase";
 
 const HowItWorks = dynamic(() =>
   import("@/components/sections/HowItWorks").then((m) => m.HowItWorks),
@@ -30,20 +29,17 @@ const Blog = dynamic(() =>
 export default function Home() {
   return (
     <>
-      <Navbar />
-      <main id="main-content">
-        <Hero />
-        <TrustSection />
-        <Features />
-        <HowItWorks />
-        <Benefits />
-        <Pricing />
-        <Testimonials />
-        <FAQ />
-        <Contact />
-        <Blog />
-      </main>
-      <Footer />
+      <Hero />
+      <TrustSection />
+      <Features />
+      <DashboardShowcase />
+      <HowItWorks />
+      <Benefits />
+      <Pricing />
+      <Testimonials />
+      <FAQ />
+      <Contact />
+      <Blog />
     </>
   );
 }

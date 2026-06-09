@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Menu, X, GraduationCap } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -28,65 +29,63 @@ export function Navbar() {
   const handleNavClick = () => setIsOpen(false);
 
   return (
-    <header 
-      className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-[1280px] h-[72px] flex items-center transition-all duration-300"
-      style={{ transform: "translate3d(0, 0, 150px)" }}
+    <header
+      className={cn(
+        "fixed top-0 inset-x-0 z-50 transition-all duration-300 w-full",
+        scrolled 
+          ? "py-3 bg-background/80 backdrop-blur-md border-b border-border/40 shadow-sm" 
+          : "py-5 bg-transparent"
+      )}
     >
-      <div
-        className={cn(
-          "w-full h-full flex items-center justify-between px-6 rounded-full glass transition-all duration-300",
-          scrolled
-            ? "shadow-lg bg-surface/90 dark:bg-[#18181b]/90 border-primary/20 dark:border-white/10"
-            : "bg-surface/75 dark:bg-[#18181b]/75 border-border/80"
-        )}
-      >
-        {/* Left Side: Logo & Text */}
-        <div className="flex items-center">
-          <a
-            href="#"
-            className="flex items-center gap-2.5 text-lg font-bold text-text group transition-transform duration-200 hover:scale-[1.02]"
-            aria-label="SchoolManager home"
-          >
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-white shadow-md shadow-primary/20">
-              <GraduationCap className="h-5 w-5" aria-hidden="true" />
-            </div>
-            <span className="font-extrabold bg-gradient-to-r from-text to-muted bg-clip-text text-transparent group-hover:from-primary group-hover:to-primary-hover transition-all duration-300">
-              SchoolManager
-            </span>
-          </a>
-        </div>
+      <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
+        {/* Left Side: Logo */}
+        <Link
+          href="/"
+          className="flex items-center gap-2.5 group transition-transform duration-200"
+          aria-label="SchoolManager home"
+        >
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-white shadow-md shadow-primary/20 group-hover:rotate-6 transition-transform duration-300">
+            <GraduationCap className="h-5 w-5" aria-hidden="true" />
+          </div>
+          <span className="font-serif font-bold text-2xl tracking-tight text-text group-hover:text-primary transition-colors duration-300">
+            SchoolManager
+          </span>
+        </Link>
 
         {/* Center: Navigation Links */}
-        <div className="hidden lg:flex items-center gap-1 xl:gap-2">
+        <nav className="hidden lg:flex items-center gap-1">
           {NAV_LINKS.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
-              className="relative px-3.5 py-2 text-sm font-semibold text-muted transition-all duration-200 hover:text-primary hover:scale-[1.03] group rounded-full hover:bg-surface-muted dark:hover:bg-white/5"
+              className="relative px-4 py-2 text-sm font-semibold text-text/80 transition-colors duration-200 hover:text-primary rounded-full hover:bg-primary/5 group"
             >
               {link.label}
-              <span className="absolute bottom-1.5 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-primary transition-all duration-300 group-hover:w-1/3" />
-            </a>
+              <motion.span
+                className="absolute bottom-1 left-4 right-4 h-[1.5px] bg-primary origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100"
+                aria-hidden="true"
+              />
+            </Link>
           ))}
-        </div>
+        </nav>
 
         {/* Right Side: Theme Toggle & Actions */}
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-4">
           <ThemeToggle />
           <Button
             variant="ghost"
             size="sm"
-            href="#"
-            className="text-sm font-bold hover:scale-[1.03] active:scale-[0.98] transition-transform"
+            href="/book-demo"
+            className="text-sm font-bold text-text hover:text-primary hover:scale-[1.02] transition-all"
           >
-            Login
+            Book Demo
           </Button>
           <Button
             size="sm"
-            href="#contact"
-            className="text-sm font-bold bg-primary text-white hover:bg-primary-hover hover:scale-[1.03] active:scale-[0.98] transition-all shadow-md shadow-primary/10"
+            href="/start-free-trial"
+            className="text-sm font-bold bg-primary text-white hover:bg-primary-hover hover:scale-[1.02] active:scale-[0.98] transition-all shadow-md shadow-primary/10 px-5"
           >
-            Sign Up
+            Start Free Trial
           </Button>
         </div>
 
@@ -95,13 +94,13 @@ export function Navbar() {
           <ThemeToggle />
           <button
             type="button"
-            className="rounded-full p-2 text-text hover:bg-surface-muted dark:hover:bg-white/5 transition-colors border border-transparent"
+            className="rounded-full p-2 text-text hover:bg-primary/10 transition-colors border border-transparent"
             onClick={() => setIsOpen(!isOpen)}
             aria-expanded={isOpen}
             aria-controls="mobile-menu"
             aria-label={isOpen ? "Close menu" : "Open menu"}
           >
-            {isOpen ? <X className="h-5.5 w-5.5" /> : <Menu className="h-5.5 w-5.5" />}
+            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
       </div>
@@ -111,29 +110,44 @@ export function Navbar() {
         {isOpen && (
           <motion.div
             id="mobile-menu"
-            initial={{ opacity: 0, y: -15 }}
+            initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="fixed inset-x-4 top-[88px] z-50 overflow-hidden rounded-[24px] border border-border bg-surface/95 dark:bg-[#18181b]/95 p-6 shadow-2xl backdrop-blur-2xl lg:hidden max-w-md mx-auto"
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="fixed inset-x-0 top-[72px] bottom-0 z-40 bg-background/95 backdrop-blur-lg lg:hidden flex flex-col p-8 border-t border-border/50 shadow-2xl"
           >
-            <div className="flex flex-col gap-3">
-              {NAV_LINKS.map((link) => (
-                <a
+            <div className="flex flex-col gap-4 max-w-md mx-auto w-full mt-4">
+              {NAV_LINKS.map((link, idx) => (
+                <Link
                   key={link.href}
                   href={link.href}
                   onClick={handleNavClick}
-                  className="text-base font-bold px-4 py-2.5 rounded-xl text-text hover:bg-primary/10 hover:text-primary transition-all duration-200"
+                  className="text-xl font-serif font-bold py-2 text-text hover:text-primary transition-colors border-b border-border/20 flex flex-col"
                 >
-                  {link.label}
-                </a>
+                  <motion.span
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: idx * 0.05 }}
+                  >
+                    {link.label}
+                  </motion.span>
+                </Link>
               ))}
-              <div className="mt-4 flex flex-col gap-3 border-t border-border pt-4">
-                <Button variant="ghost" href="#" onClick={handleNavClick} className="w-full font-bold">
-                  Login
+              <div className="mt-8 flex flex-col gap-4 border-t border-border/40 pt-6">
+                <Button 
+                  variant="outline" 
+                  href="/book-demo" 
+                  onClick={handleNavClick} 
+                  className="w-full font-bold border-primary text-primary hover:bg-primary/5 py-3.5"
+                >
+                  Book Demo
                 </Button>
-                <Button href="#contact" onClick={handleNavClick} className="bg-primary hover:bg-primary-hover w-full font-bold text-white">
-                  Sign Up
+                <Button 
+                  href="/start-free-trial" 
+                  onClick={handleNavClick} 
+                  className="bg-primary hover:bg-primary-hover w-full font-bold text-white py-3.5"
+                >
+                  Start Free Trial
                 </Button>
               </div>
             </div>

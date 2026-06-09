@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 type ButtonVariant = "primary" | "secondary" | "ghost" | "outline";
@@ -45,12 +46,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       sizeStyles[size],
       className,
     );
-
     if (href) {
       return (
-        <a href={href} className={classes}>
+        <Link href={href} className={classes}>
           {children}
-        </a>
+        </Link>
       );
     }
 

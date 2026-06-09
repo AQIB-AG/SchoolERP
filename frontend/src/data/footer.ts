@@ -2,19 +2,27 @@ import type { FooterLinkGroup } from "@/types";
 
 export const FOOTER_LINKS: FooterLinkGroup[] = [
   {
-    title: "Company",
+    title: "Product",
     links: [
-      { label: "About", href: "#" },
-      { label: "Careers", href: "#" },
-      { label: "Contact", href: "#contact" },
+      { label: "Features", href: "/features" },
+      { label: "Pricing", href: "/pricing" },
+      { label: "Integrations", href: "/features#integrations" },
     ],
   },
   {
-    title: "Product",
+    title: "Company",
     links: [
-      { label: "Features", href: "#features" },
-      { label: "Pricing", href: "#pricing" },
-      { label: "Demo", href: "#contact" },
+      { label: "About", href: "/about" },
+      { label: "Careers", href: "/about#careers" },
+      { label: "Blog", href: "/#blog" },
+    ],
+  },
+  {
+    title: "Support",
+    links: [
+      { label: "Contact", href: "/contact" },
+      { label: "Help Center", href: "/faq" },
+      { label: "Documentation", href: "/faq#docs" },
     ],
   },
 ];
@@ -22,5 +30,5 @@ export const FOOTER_LINKS: FooterLinkGroup[] = [
 export const SOCIAL_LINKS = [
   { label: "Twitter", href: "https://twitter.com" },
   { label: "LinkedIn", href: "https://linkedin.com" },
-  { label: "Facebook", href: "https://facebook.com" },
+  { label: "Instagram", href: "https://instagram.com" },
 ];

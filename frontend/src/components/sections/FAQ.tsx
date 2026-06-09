@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, HelpCircle } from "lucide-react";
+import { Plus } from "lucide-react";
 import { FAQS } from "@/data/faq";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { cn } from "@/lib/utils";
+
+const LUXURY_EASE = [0.16, 1, 0.3, 1] as const;
 
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -23,53 +24,48 @@ export function FAQ() {
   };
 
   return (
-    <section id="faq" className="section-padding bg-background relative overflow-hidden">
-      {/* Background Glow */}
+    <section id="faq" className="py-24 md:py-32 bg-background relative overflow-hidden">
+      {/* Background soft glow */}
       <div className="absolute top-[40%] left-[-15%] w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
 
       <Container className="relative z-10">
         <SectionHeading title="Frequently Asked Questions" />
 
-        <div className="mx-auto max-w-3xl space-y-4 mt-12">
+        {/* Minimalist divider-style FAQ Accordion */}
+        <div className="mx-auto max-w-3xl mt-16 md:mt-20 border-t border-border/60">
           {FAQS.map((faq, index) => {
             const isOpen = openIndex === index;
 
             return (
-              <motion.div
+              <div
                 key={faq.question}
-                layout
-                className={cn(
-                  "overflow-hidden rounded-[24px] border transition-all duration-300 glass",
-                  isOpen
-                    ? "border-primary/40 bg-surface/75 dark:bg-surface/50 shadow-xl shadow-primary/5 ring-1 ring-primary/20"
-                    : "border-border/80 bg-surface/40 hover:border-primary/20 hover:bg-surface/60"
-                )}
+                className="border-b border-border/60 py-6 transition-all duration-300"
               >
                 <button
                   type="button"
                   onClick={() => toggle(index)}
                   onKeyDown={(e) => handleKeyDown(e, index)}
-                  className="flex w-full items-center justify-between gap-4 p-6 text-left focus:outline-none cursor-pointer"
+                  className="flex w-full items-center justify-between gap-6 text-left focus:outline-none cursor-pointer group"
                   aria-expanded={isOpen}
                   aria-controls={`faq-answer-${index}`}
                   id={`faq-question-${index}`}
                 >
-                  <div className="flex items-center gap-3">
-                    <HelpCircle className={cn(
-                      "h-5 w-5 shrink-0 transition-colors duration-300",
-                      isOpen ? "text-primary" : "text-muted"
-                    )} />
-                    <span className="text-base md:text-lg font-bold text-text">
-                      {faq.question}
-                    </span>
-                  </div>
-                  <ChevronDown
-                    className={cn(
-                      "h-5 w-5 shrink-0 text-muted transition-transform duration-300",
-                      isOpen && "rotate-180 text-primary",
-                    )}
-                    aria-hidden="true"
-                  />
+                  <span className={`text-base md:text-lg font-bold transition-colors duration-250 ${
+                    isOpen ? "text-primary" : "text-text hover:text-primary"
+                  }`}>
+                    {faq.question}
+                  </span>
+                  
+                  {/* Premium plus rotating toggle */}
+                  <motion.div
+                    animate={{ rotate: isOpen ? 135 : 0 }}
+                    transition={{ duration: 0.4, ease: LUXURY_EASE }}
+                    className={`h-8 w-8 rounded-full border border-border/80 flex items-center justify-center shrink-0 transition-colors ${
+                      isOpen ? "bg-primary/5 border-primary text-primary" : "text-muted group-hover:border-primary group-hover:text-primary"
+                    }`}
+                  >
+                    <Plus className="h-4 w-4" />
+                  </motion.div>
                 </button>
 
                 <AnimatePresence initial={false}>
@@ -81,16 +77,16 @@ export function FAQ() {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
+                      transition={{ duration: 0.35, ease: LUXURY_EASE }}
                       className="overflow-hidden"
                     >
-                      <div className="px-6 pb-6 pt-1 text-sm md:text-base text-muted font-medium leading-relaxed border-l-2 border-primary/40 ml-8">
+                      <div className="pt-4 pr-12 text-sm md:text-base text-muted font-medium leading-relaxed max-w-2xl">
                         {faq.answer}
                       </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </motion.div>
+              </div>
             );
           })}
         </div>

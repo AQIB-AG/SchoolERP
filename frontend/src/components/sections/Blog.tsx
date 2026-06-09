@@ -29,8 +29,8 @@ export function Blog() {
               className="h-full flex"
             >
               <TiltCard
-                glowColor="rgba(79, 70, 229, 0.15)"
-                className="group flex w-full flex-col overflow-hidden p-0 border border-border bg-surface/50 dark:bg-[#18181b]/50 backdrop-blur-md relative z-20"
+                glowColor="rgba(31, 110, 90, 0.15)"
+                className="group flex w-full flex-col overflow-hidden p-0 border border-border bg-surface/50 dark:bg-surface/50 backdrop-blur-md relative z-20"
               >
                 <div className="relative h-48 w-full overflow-hidden">
                   <Image
