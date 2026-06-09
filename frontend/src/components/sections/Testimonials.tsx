@@ -1,153 +1,93 @@
 "use client";
 
-import { useState, useCallback } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import { TESTIMONIALS } from "@/data/testimonials";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Card } from "@/components/ui/Card";
+import { TiltCard } from "@/components/shared/TiltCard";
 
 export function Testimonials() {
-  const [current, setCurrent] = useState(0);
-
-  const next = useCallback(() => {
-    setCurrent((prev) => (prev + 1) % TESTIMONIALS.length);
-  }, []);
-
-  const prev = useCallback(() => {
-    setCurrent(
-      (prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length,
-    );
-  }, []);
+  // Triplicate testimonials to ensure seamless marquee wrapping on all screen widths
+  const marqueeItems = [...TESTIMONIALS, ...TESTIMONIALS, ...TESTIMONIALS, ...TESTIMONIALS];
 
   return (
-    <section id="testimonials" className="section-padding bg-background">
-      <Container>
-        <SectionHeading title="Trusted by School Leaders" />
+    <section id="testimonials" className="section-padding bg-surface-muted relative overflow-hidden">
+      {/* Glow shapes */}
+      <div className="absolute top-1/2 left-0 w-80 h-80 bg-secondary/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-80 h-80 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
 
-        <div className="relative mx-auto max-w-3xl">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={current}
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -30 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Card className="flex flex-col">
-                <div className="mb-4 flex gap-1">
-                  {Array.from({ length: TESTIMONIALS[current].rating }).map(
-                    (_, i) => (
-                      <Star
-                        key={i}
-                        className="h-5 w-5 fill-amber-400 text-amber-400"
-                        aria-hidden="true"
-                      />
-                    ),
-                  )}
-                </div>
+      <Container className="relative z-10">
+        <SectionHeading title="Loved by Leaders in Education" />
+      </Container>
 
-                <p className="text-lg text-muted">
-                  &ldquo;{TESTIMONIALS[current].review}&rdquo;
-                </p>
+      {/* Infinite Marquee Container */}
+      <div className="relative mt-16 w-full overflow-hidden py-4">
+        {/* Shadow overlays on edges for Stripe-style transition */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-16 bg-gradient-to-r from-surface-muted to-transparent md:w-32" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-16 bg-gradient-to-l from-surface-muted to-transparent md:w-32" />
 
-                <div className="mt-6 flex items-center gap-4 border-t border-border pt-6">
-                  <Image
-                    src={TESTIMONIALS[current].image}
-                    alt={TESTIMONIALS[current].name}
-                    width={56}
-                    height={56}
-                    className="rounded-full object-cover"
-                  />
+        {/* Scrolling tape */}
+        <div className="flex w-max">
+          <div className="flex gap-6 animate-[marquee_40s_linear_infinite] hover:[animation-play-state:paused] px-3">
+            {marqueeItems.map((testimonial, idx) => (
+              <div
+                key={`${testimonial.name}-${idx}`}
+                className="w-[340px] md:w-[400px] shrink-0"
+              >
+                <TiltCard
+                  glowColor="rgba(79, 70, 229, 0.15)"
+                  className="flex h-full flex-col justify-between border border-border/80 bg-surface/80 p-6 md:p-8 dark:bg-[#18181b]/80 backdrop-blur-md"
+                >
                   <div>
-                    <p className="font-bold text-text">
-                      {TESTIMONIALS[current].name}
-                    </p>
-                    <p className="text-sm text-muted">
-                      {TESTIMONIALS[current].designation},{" "}
-                      {TESTIMONIALS[current].school}
+                    {/* Stars */}
+                    <div className="mb-4 flex gap-1 text-amber-400">
+                      {Array.from({ length: testimonial.rating }).map((_, i) => (
+                        <Star key={i} className="h-4 w-4 fill-current" />
+                      ))}
+                    </div>
+
+                    <p className="text-sm md:text-base text-text dark:text-[#FFFFFF]/90 italic leading-relaxed font-medium">
+                      &ldquo;{testimonial.review}&rdquo;
                     </p>
                   </div>
-                </div>
-              </Card>
-            </motion.div>
-          </AnimatePresence>
 
-          <div className="mt-8 flex items-center justify-center gap-4">
-            <button
-              type="button"
-              onClick={prev}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-text transition-colors hover:bg-primary hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-              aria-label="Previous testimonial"
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-
-            <div className="flex gap-2" role="tablist" aria-label="Testimonials">
-              {TESTIMONIALS.map((_, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  role="tab"
-                  aria-selected={i === current}
-                  onClick={() => setCurrent(i)}
-                  className={`h-2 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
-                    i === current
-                      ? "w-6 bg-primary"
-                      : "w-2 bg-slate-300 dark:bg-slate-600"
-                  }`}
-                  aria-label={`Go to testimonial ${i + 1}`}
-                />
-              ))}
-            </div>
-
-            <button
-              type="button"
-              onClick={next}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-text transition-colors hover:bg-primary hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-              aria-label="Next testimonial"
-            >
-              <ChevronRight className="h-5 w-5" />
-            </button>
+                  {/* Profile info */}
+                  <div className="mt-6 flex items-center gap-4 border-t border-border/40 pt-4">
+                    <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full border border-primary/20">
+                      <Image
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        fill
+                        className="object-cover"
+                        sizes="44px"
+                      />
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-text">{testimonial.name}</p>
+                      <p className="text-xs text-muted font-medium">
+                        {testimonial.designation}, {testimonial.school}
+                      </p>
+                    </div>
+                  </div>
+                </TiltCard>
+              </div>
+            ))}
           </div>
         </div>
+      </div>
 
-        <div className="mt-12 hidden gap-6 md:grid md:grid-cols-3">
-          {TESTIMONIALS.map((testimonial) => (
-            <Card key={testimonial.name} className="flex flex-col">
-              <div className="mb-3 flex gap-1">
-                {Array.from({ length: testimonial.rating }).map((_, i) => (
-                  <Star
-                    key={i}
-                    className="h-4 w-4 fill-amber-400 text-amber-400"
-                    aria-hidden="true"
-                  />
-                ))}
-              </div>
-              <p className="flex-1 text-sm text-muted">
-                &ldquo;{testimonial.review}&rdquo;
-              </p>
-              <div className="mt-4 flex items-center gap-3 border-t border-border pt-4">
-                <Image
-                  src={testimonial.image}
-                  alt={testimonial.name}
-                  width={40}
-                  height={40}
-                  className="rounded-full object-cover"
-                />
-                <div>
-                  <p className="text-sm font-bold text-text">{testimonial.name}</p>
-                  <p className="text-xs text-muted">
-                    {testimonial.designation}
-                  </p>
-                </div>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </Container>
+      {/* Keyframe Injector */}
+      <style jsx global>{`
+        @keyframes marquee {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-33.333%);
+          }
+        }
+      `}</style>
     </section>
   );
 }

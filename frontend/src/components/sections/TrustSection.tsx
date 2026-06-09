@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { TRUST_STATS } from "@/data/trust";
 import { Container } from "@/components/ui/Container";
-import { Card } from "@/components/ui/Card";
+import { TiltCard } from "@/components/shared/TiltCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 function AnimatedCounter({
@@ -58,27 +58,27 @@ export function TrustSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section className="section-padding bg-surface" ref={ref}>
+    <section className="section-padding bg-surface-muted/30" ref={ref}>
       <Container>
         <SectionHeading
           title="Trusted by Schools Worldwide"
           subtitle="Join hundreds of institutions already transforming education with SchoolManager."
         />
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 md:gap-6">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 md:gap-8 mt-12 max-w-5xl mx-auto">
           {TRUST_STATS.map((stat, index) => (
             <motion.div
               key={stat.label}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
+              transition={{ delay: index * 0.1, duration: 0.5 }}
             >
-              <Card
-                hover
-                className="text-center transition-transform hover:scale-[1.03]"
+              <TiltCard
+                glowColor="rgba(16, 185, 129, 0.12)"
+                className="text-center p-8 bg-surface/80 border-border/80 dark:bg-surface/30 backdrop-blur-md"
               >
-                <p className="text-3xl font-bold text-primary md:text-4xl">
+                <p className="text-4xl font-black text-primary md:text-5xl bg-gradient-to-r from-primary to-emerald-500 bg-clip-text text-transparent">
                   <AnimatedCounter
                     value={stat.value}
                     suffix={stat.suffix}
@@ -86,10 +86,10 @@ export function TrustSection() {
                     decimals={stat.decimals}
                   />
                 </p>
-                <p className="mt-2 text-sm text-muted md:text-base">
+                <p className="mt-3 text-sm font-bold text-muted uppercase tracking-wider">
                   {stat.label}
                 </p>
-              </Card>
+              </TiltCard>
             </motion.div>
           ))}
         </div>

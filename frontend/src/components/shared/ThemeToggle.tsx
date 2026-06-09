@@ -16,8 +16,8 @@ export function ThemeToggle({ className }: { className?: string }) {
       <button
         type="button"
         className={cn(
-          "flex h-9 w-9 items-center justify-center rounded-[14px] border border-slate-200 bg-surface text-text",
-          className,
+          "flex h-9 w-9 items-center justify-center rounded-[12px] border border-border bg-surface text-text",
+          className
         )}
         aria-label="Toggle theme"
         disabled
@@ -32,15 +32,15 @@ export function ThemeToggle({ className }: { className?: string }) {
       type="button"
       onClick={() => setTheme(isDark ? "light" : "dark")}
       className={cn(
-        "flex h-9 w-9 items-center justify-center rounded-[14px] border border-slate-200/80 bg-surface text-text transition-colors hover:bg-primary/5 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:border-slate-700 dark:bg-slate-800",
-        className,
+        "flex h-9 w-9 items-center justify-center rounded-[12px] border border-border/80 bg-surface text-text transition-all duration-200 hover:bg-surface-muted focus:outline-none focus:ring-2 focus:ring-primary/40",
+        className
       )}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
     >
       {isDark ? (
-        <Sun className="h-4 w-4" aria-hidden="true" />
+        <Sun className="h-4.5 w-4.5 text-amber-400 fill-amber-400 transition-all duration-300 hover:rotate-12" aria-hidden="true" />
       ) : (
-        <Moon className="h-4 w-4" aria-hidden="true" />
+        <Moon className="h-4.5 w-4.5 text-slate-800 fill-slate-800 transition-all duration-300 hover:-rotate-12" aria-hidden="true" />
       )}
     </button>
   );
