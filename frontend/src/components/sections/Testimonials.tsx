@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { TESTIMONIALS } from "@/data/testimonials";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { ParallaxBackground } from "@/components/shared/ParallaxBackground";
 
 const LUXURY_EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -39,6 +40,7 @@ const slideVariants = {
 export function Testimonials() {
   // Page index and direction tuple
   const [[page, direction], setPage] = useState([0, 0]);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   const activeIndex = page;
 
@@ -55,7 +57,12 @@ export function Testimonials() {
   const current = TESTIMONIALS[activeIndex];
 
   return (
-    <section id="testimonials" className="py-24 md:py-32 bg-surface-muted/30 relative overflow-hidden">
+    <section id="testimonials" ref={sectionRef} className="py-24 md:py-32 bg-background relative overflow-hidden">
+      <ParallaxBackground 
+        imageUrl="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=1200" 
+        targetRef={sectionRef} 
+        opacity={0.45} 
+      />
       {/* Background decoration glows */}
       <div className="absolute top-1/2 left-0 w-80 h-80 bg-secondary/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-80 h-80 bg-primary/5 rounded-full blur-[120px] pointer-events-none" />

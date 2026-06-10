@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import { motion } from "framer-motion";
 import {
   GraduationCap,
@@ -19,6 +20,8 @@ import { Container } from "@/components/ui/Container";
 const LUXURY_EASE = [0.16, 1, 0.3, 1] as const;
 
 export function Features() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -38,7 +41,14 @@ export function Features() {
   };
 
   return (
-    <section id="features" className="py-24 md:py-32 bg-surface-muted/30 relative overflow-hidden">
+    <section id="features" ref={sectionRef} className="py-24 md:py-32 bg-background relative overflow-hidden">
+      {/* Handcrafted Editorial SVG Flowing Curved Lines */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.04] dark:opacity-[0.09] text-primary" fill="none" viewBox="0 0 1440 800" preserveAspectRatio="none">
+        <path d="M-100,150 C300,50 500,350 900,200 C1300,50 1500,450 1600,300" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M-100,220 C300,120 500,420 900,270 C1300,120 1500,520 1600,370" stroke="currentColor" strokeWidth="1.5" strokeDasharray="6 6" />
+        <path d="M-100,550 C200,400 600,600 1000,450 C1300,350 1500,600 1600,500" stroke="currentColor" strokeWidth="1.2" />
+      </svg>
+
       {/* Background Soft Glow Ring */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
 
@@ -62,15 +72,16 @@ export function Features() {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true }}
           className="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-3 gap-6"
         >
+
           
           {/* Card 1: Student Management (Wide Span) */}
           <motion.div 
             variants={itemVariants}
             {...cardHoverProps}
-            className="md:col-span-4 lg:col-span-2 group bg-surface border border-border/70 rounded-[28px] p-8 shadow-sm flex flex-col justify-between min-h-[340px] hover:border-primary/30 transition-colors duration-300 relative overflow-hidden cursor-pointer"
+            className="md:col-span-4 lg:col-span-2 group bg-surface border border-border/70 dark:border-white/10 rounded-[28px] p-8 shadow-sm flex flex-col justify-between min-h-[340px] hover:border-primary/30 transition-colors duration-300 relative overflow-hidden cursor-pointer"
           >
             <div>
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary mb-6 group-hover:scale-110 transition-transform duration-300">
@@ -108,7 +119,7 @@ export function Features() {
           <motion.div 
             variants={itemVariants}
             {...cardHoverProps}
-            className="md:col-span-2 lg:col-span-1 group bg-surface border border-border/70 rounded-[28px] p-8 shadow-sm flex flex-col justify-between min-h-[340px] hover:border-primary/30 transition-colors duration-300 cursor-pointer"
+            className="md:col-span-2 lg:col-span-1 group bg-surface border border-border/70 dark:border-white/10 rounded-[28px] p-8 shadow-sm flex flex-col justify-between min-h-[340px] hover:border-primary/30 transition-colors duration-300 cursor-pointer"
           >
             <div>
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary/10 text-secondary mb-6 group-hover:scale-110 transition-transform duration-300">
@@ -140,7 +151,7 @@ export function Features() {
           <motion.div 
             variants={itemVariants}
             {...cardHoverProps}
-            className="md:col-span-3 lg:col-span-1 group bg-surface border border-border/70 rounded-[28px] p-8 shadow-sm flex flex-col justify-between min-h-[340px] hover:border-primary/30 transition-colors duration-300 cursor-pointer"
+            className="md:col-span-3 lg:col-span-1 group bg-surface border border-border/70 dark:border-white/10 rounded-[28px] p-8 shadow-sm flex flex-col justify-between min-h-[340px] hover:border-primary/30 transition-colors duration-300 cursor-pointer"
           >
             <div>
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent/10 text-secondary mb-6 group-hover:scale-110 transition-transform duration-300">
@@ -169,7 +180,7 @@ export function Features() {
           <motion.div 
             variants={itemVariants}
             {...cardHoverProps}
-            className="md:col-span-3 lg:col-span-1 group bg-surface border border-border/70 rounded-[28px] p-8 shadow-sm flex flex-col justify-between min-h-[340px] hover:border-primary/30 transition-colors duration-300 cursor-pointer"
+            className="md:col-span-3 lg:col-span-1 group bg-surface border border-border/70 dark:border-white/10 rounded-[28px] p-8 shadow-sm flex flex-col justify-between min-h-[340px] hover:border-primary/30 transition-colors duration-300 cursor-pointer"
           >
             <div>
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary mb-6 group-hover:scale-110 transition-transform duration-300">
@@ -186,7 +197,7 @@ export function Features() {
               <div className="bg-surface-muted/50 border border-border/30 rounded-xl p-2.5 max-w-[85%] self-start text-[9px] font-medium text-text">
                 Is school closed for the holiday tomorrow?
               </div>
-              <div className="bg-primary text-white rounded-xl p-2.5 max-w-[85%] self-end text-[9px] font-bold">
+              <div className="bg-primary text-white dark:text-[#141C19] rounded-xl p-2.5 max-w-[85%] self-end text-[9px] font-bold">
                 Yes! Normal classes resume Friday.
               </div>
             </div>
@@ -196,7 +207,7 @@ export function Features() {
           <motion.div 
             variants={itemVariants}
             {...cardHoverProps}
-            className="md:col-span-2 lg:col-span-1 group bg-surface border border-border/70 rounded-[28px] p-8 shadow-sm flex flex-col justify-between min-h-[340px] hover:border-primary/30 transition-colors duration-300 cursor-pointer"
+            className="md:col-span-2 lg:col-span-1 group bg-surface border border-border/70 dark:border-white/10 rounded-[28px] p-8 shadow-sm flex flex-col justify-between min-h-[340px] hover:border-primary/30 transition-colors duration-300 cursor-pointer"
           >
             <div>
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary/10 text-secondary mb-6 group-hover:scale-110 transition-transform duration-300">
@@ -224,7 +235,7 @@ export function Features() {
           <motion.div 
             variants={itemVariants}
             {...cardHoverProps}
-            className="md:col-span-4 lg:col-span-2 group bg-surface border border-border/70 rounded-[28px] p-8 shadow-sm flex flex-col justify-between min-h-[340px] hover:border-primary/30 transition-colors duration-300 relative overflow-hidden cursor-pointer"
+            className="md:col-span-4 lg:col-span-2 group bg-surface border border-border/70 dark:border-white/10 rounded-[28px] p-8 shadow-sm flex flex-col justify-between min-h-[340px] hover:border-primary/30 transition-colors duration-300 relative overflow-hidden cursor-pointer"
           >
             <div>
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent/10 text-secondary mb-6 group-hover:scale-110 transition-transform duration-300">

@@ -10,6 +10,10 @@ export const contactFormSchema = z.object({
     .string()
     .min(2, "School name must be at least 2 characters")
     .max(150, "School name must be less than 150 characters"),
+  phoneNumber: z
+    .string()
+    .min(7, "Phone number must be at least 7 digits")
+    .max(20, "Phone number must be less than 20 digits"),
   message: z
     .string()
     .min(20, "Message must be at least 20 characters")

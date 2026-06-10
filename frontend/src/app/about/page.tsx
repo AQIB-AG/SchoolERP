@@ -1,9 +1,11 @@
 "use client";
 
+import { useRef } from "react";
 import { Container } from "@/components/ui/Container";
 import { motion } from "framer-motion";
 import { Sparkles, Shield, Heart, Lightbulb, Users, Milestone } from "lucide-react";
 import Image from "next/image";
+import { ParallaxBackground } from "@/components/shared/ParallaxBackground";
 
 const CORE_VALUES = [
   {
@@ -40,8 +42,16 @@ const TEAM = [
 ];
 
 export default function AboutPage() {
+  const pageRef = useRef<HTMLDivElement>(null);
+
   return (
-    <div className="bg-background pt-32 pb-24 min-h-screen">
+    <div ref={pageRef} className="bg-background pt-32 pb-24 min-h-screen relative overflow-hidden">
+      <ParallaxBackground 
+        imageUrl="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=1200" 
+        targetRef={pageRef} 
+        opacity={0.45} 
+      />
+
       {/* Page Header */}
       <Container className="relative z-10 mb-20 text-center max-w-4xl">
         <motion.div

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion, AnimatePresence } from "framer-motion";
@@ -19,6 +19,7 @@ const LUXURY_EASE = [0.16, 1, 0.3, 1] as const;
 export function Contact() {
   const { toasts, show, dismiss } = useToast();
   const [isSuccess, setIsSuccess] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   const {
     register,
@@ -56,7 +57,12 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 md:py-32 bg-surface-muted/30 relative overflow-hidden">
+    <section id="contact" ref={sectionRef} className="py-24 md:py-32 bg-background relative overflow-hidden">
+      {/* Handcrafted Editorial SVG Flowing Curved Lines (matching Interface Showcase) */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.03] dark:opacity-[0.07] text-primary" fill="none" viewBox="0 0 1440 900" preserveAspectRatio="none">
+        <path d="M-100,300 C300,150 500,450 900,300 C1300,150 1500,550 1600,400" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M-100,650 C200,550 600,750 1000,600 C1300,500 1500,800 1600,700" stroke="currentColor" strokeWidth="1.2" strokeDasharray="5 5" />
+      </svg>
       {/* Lights & Glows */}
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
 
@@ -66,21 +72,21 @@ export function Contact() {
           subtitle="Ready to transform your school? We'd love to hear from you."
         />
 
-        <div className="grid gap-16 lg:grid-cols-2 lg:gap-20 mt-16 max-w-6xl mx-auto items-center">
-          {/* Info Details Left Column */}
+        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 mt-16 max-w-6xl mx-auto items-stretch">
+          {/* Info Details Left Column wrapped in glass */}
           <motion.div
             initial={{ opacity: 0, x: -20, y: 10 }}
             whileInView={{ opacity: 1, x: 0, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: LUXURY_EASE }}
-            className="space-y-8 flex flex-col justify-center"
+            className="space-y-8 flex flex-col justify-center bg-surface/75 dark:bg-[#1E2824]/85 backdrop-blur-md border border-border/40 dark:border-white/10 p-8 md:p-10 rounded-[32px] shadow-2xl"
           >
             <div>
               <span className="text-xs font-bold tracking-widest text-secondary uppercase block mb-3">
                 LET'S TALK
               </span>
               <h3 className="font-serif text-3xl font-bold text-text leading-tight">Contact Information</h3>
-              <p className="mt-4 text-muted text-base font-medium leading-relaxed max-w-md">
+              <p className="mt-4 text-muted text-sm md:text-base font-medium leading-relaxed max-w-md">
                 Have questions about custom pricing, implementation plans, or LMS integration? Our academic systems engineering team is here to assist.
               </p>
             </div>
@@ -108,7 +114,7 @@ export function Contact() {
             </div>
           </motion.div>
 
-          {/* Form Box Right Column */}
+          {/* Form Box Right Column wrapped in matching glass */}
           <motion.div
             initial={{ opacity: 0, x: 20, y: 10 }}
             whileInView={{ opacity: 1, x: 0, y: 0 }}
@@ -116,7 +122,7 @@ export function Contact() {
             transition={{ duration: 0.8, ease: LUXURY_EASE }}
             className="w-full"
           >
-            <div className="relative rounded-[28px] border border-border/80 bg-surface p-6 md:p-8 shadow-xl overflow-hidden min-h-[420px] flex flex-col justify-center dark:bg-[#1E2824]/90">
+            <div className="relative rounded-[32px] border border-border/40 dark:border-white/10 bg-surface/75 backdrop-blur-md p-8 md:p-10 shadow-2xl overflow-hidden min-h-[420px] flex flex-col justify-center dark:bg-[#1E2824]/85">
               <AnimatePresence mode="wait">
                 {!isSuccess ? (
                   <motion.form
@@ -125,19 +131,20 @@ export function Contact() {
                     noValidate
                     initial={{ opacity: 1 }}
                     exit={{ opacity: 0, scale: 0.96 }}
-                    className="space-y-5"
+                    className="space-y-4"
                   >
                     {(
                       [
                         { name: "name", label: "Full Name", type: "text", placeholder: "Alex Carter" },
                         { name: "email", label: "Email Address", type: "email", placeholder: "alex@school.edu" },
                         { name: "schoolName", label: "Institution Name", type: "text", placeholder: "Oakwood High" },
+                        { name: "phoneNumber", label: "Phone Number", type: "tel", placeholder: "+1 (555) 123-4567" },
                       ] as const
                     ).map((field) => (
                       <div key={field.name}>
                         <label
                           htmlFor={field.name}
-                          className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text"
+                          className="mb-1 block text-xs font-bold uppercase tracking-wider text-text"
                         >
                           {field.label}
                         </label>
@@ -151,8 +158,8 @@ export function Contact() {
                             errors[field.name] ? `${field.name}-error` : undefined
                           }
                           className={cn(
-                            "w-full rounded-[14px] border px-4 py-3 text-sm transition-all duration-300 focus:outline-none focus:ring-4",
-                            "bg-background border-border/60 text-text placeholder-muted focus:border-primary focus:ring-primary/20",
+                            "w-full rounded-[12px] border px-4 py-2.5 text-sm transition-all duration-300 focus:outline-none focus:ring-4",
+                            "bg-background/80 border-border/60 text-text placeholder-muted focus:border-primary focus:ring-primary/20 dark:border-white/20 dark:bg-background/95",
                             errors[field.name]
                               ? "border-red-400 focus:border-red-500 focus:ring-red-500/10 dark:border-red-500 dark:focus:border-red-500"
                               : ""
@@ -166,7 +173,7 @@ export function Contact() {
                               exit={{ opacity: 0, height: 0, y: -4 }}
                               transition={{ duration: 0.25, ease: LUXURY_EASE }}
                               id={`${field.name}-error`}
-                              className="mt-1.5 text-xs font-bold text-red-500 overflow-hidden"
+                              className="mt-1 text-xs font-bold text-red-500 overflow-hidden"
                               role="alert"
                             >
                               {errors[field.name]?.message}
@@ -179,13 +186,13 @@ export function Contact() {
                     <div>
                       <label
                         htmlFor="message"
-                        className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-text"
+                        className="mb-1 block text-xs font-bold uppercase tracking-wider text-text"
                       >
                         Message
                       </label>
                       <textarea
                         id="message"
-                        rows={4}
+                        rows={3}
                         placeholder="Tell us about your school goals..."
                         {...register("message")}
                         aria-invalid={!!errors.message}
@@ -193,8 +200,8 @@ export function Contact() {
                           errors.message ? "message-error" : undefined
                         }
                         className={cn(
-                          "w-full resize-none rounded-[14px] border px-4 py-3 text-sm transition-all duration-300 focus:outline-none focus:ring-4",
-                          "bg-background border-border/60 text-text placeholder-muted focus:border-primary focus:ring-primary/20",
+                          "w-full resize-none rounded-[12px] border px-4 py-2.5 text-sm transition-all duration-300 focus:outline-none focus:ring-4",
+                          "bg-background/80 border-border/60 text-text placeholder-muted focus:border-primary focus:ring-primary/20 dark:border-white/20 dark:bg-background/95",
                           errors.message 
                             ? "border-red-400 focus:border-red-500 focus:ring-red-500/10 dark:border-red-500 dark:focus:border-red-500" 
                             : ""
@@ -208,7 +215,7 @@ export function Contact() {
                             exit={{ opacity: 0, height: 0, y: -4 }}
                             transition={{ duration: 0.25, ease: LUXURY_EASE }}
                             id="message-error"
-                            className="mt-1.5 text-xs font-bold text-red-500 overflow-hidden"
+                            className="mt-1 text-xs font-bold text-red-500 overflow-hidden"
                             role="alert"
                           >
                             {errors.message.message}
@@ -220,7 +227,7 @@ export function Contact() {
                     <Button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-primary hover:bg-primary-hover border-none py-3.5 font-bold hover:scale-[1.02] flex items-center justify-center gap-2 text-white shadow-md shadow-primary/10"
+                      className="w-full bg-primary hover:bg-primary-hover border-none py-3.5 font-bold hover:scale-[1.02] flex items-center justify-center gap-2 text-white shadow-md shadow-primary/10 mt-2"
                       size="lg"
                     >
                       {isSubmitting ? (

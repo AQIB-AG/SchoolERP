@@ -30,7 +30,7 @@ export function Blog() {
             >
               <TiltCard
                 glowColor="rgba(31, 110, 90, 0.15)"
-                className="group flex w-full flex-col overflow-hidden p-0 border border-border bg-surface/50 dark:bg-surface/50 backdrop-blur-md relative z-20"
+                className="group flex w-full flex-col overflow-hidden p-0 border border-border dark:border-white/10 bg-surface/50 dark:bg-surface/50 backdrop-blur-md relative z-20"
               >
                 <div className="relative h-48 w-full overflow-hidden">
                   <Image

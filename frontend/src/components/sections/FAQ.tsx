@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus } from "lucide-react";
 import { FAQS } from "@/data/faq";
@@ -11,6 +11,7 @@ const LUXURY_EASE = [0.16, 1, 0.3, 1] as const;
 
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   const toggle = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -24,7 +25,14 @@ export function FAQ() {
   };
 
   return (
-    <section id="faq" className="py-24 md:py-32 bg-background relative overflow-hidden">
+    <section id="faq" ref={sectionRef} className="py-24 md:py-32 bg-background relative overflow-hidden">
+      {/* Handcrafted Editorial SVG Organic Wave Curves */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.02] dark:opacity-[0.06] text-primary" fill="none" viewBox="0 0 1440 800" preserveAspectRatio="none">
+        <path d="M100,-100 C300,200 100,500 400,900" stroke="currentColor" strokeWidth="1.2" />
+        <path d="M150,-100 C350,200 150,500 450,900" stroke="currentColor" strokeWidth="1.2" strokeDasharray="4 4" />
+        <path d="M1200,-100 C1000,300 1300,500 1100,900" stroke="currentColor" strokeWidth="1.2" />
+        <path d="M1250,-100 C1050,300 1350,500 1150,900" stroke="currentColor" strokeWidth="1.2" strokeDasharray="4 4" />
+      </svg>
       {/* Background soft glow */}
       <div className="absolute top-[40%] left-[-15%] w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
 

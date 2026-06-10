@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, Sparkles } from "lucide-react";
 import { PRICING_PLANS } from "@/data/pricing";
@@ -13,9 +13,18 @@ const LUXURY_EASE = [0.16, 1, 0.3, 1] as const;
 
 export function Pricing() {
   const [isYearly, setIsYearly] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   return (
-    <section id="pricing" className="py-24 md:py-32 bg-background relative overflow-hidden">
+    <section id="pricing" ref={sectionRef} className="py-24 md:py-32 bg-background relative overflow-hidden">
+      {/* Handcrafted Editorial SVG Wave Contour Pattern */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.03] dark:opacity-[0.08] text-secondary" fill="none" viewBox="0 0 1440 900" preserveAspectRatio="none">
+        <path d="M-100,200 C300,100 500,400 900,300 C1300,200 1500,500 1600,400" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M-100,230 C300,130 500,430 900,330 C1300,230 1500,530 1600,430" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M-100,260 C300,160 500,460 900,360 C1300,260 1500,560 1600,460" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M-100,600 C200,500 600,700 1000,550 C1300,450 1500,750 1600,650" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" />
+      </svg>
+
       {/* Background decorations */}
       <div className="absolute top-[20%] right-[-10%] w-[500px] h-[500px] bg-secondary/5 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-[10%] left-[-10%] w-[500px] h-[500px] bg-primary/5 rounded-full blur-[140px] pointer-events-none" />
@@ -76,7 +85,7 @@ export function Pricing() {
                 key={plan.name}
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
+                viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: index * 0.15, ease: LUXURY_EASE }}
                 whileHover={{ y: -8, scale: 1.01 }}
                 className="h-full flex"

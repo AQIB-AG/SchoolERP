@@ -1,10 +1,12 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --primary: #1F6E5A; /* Forest Green */
   --primary-hover: #165243;
-  --secondary: #C9734F; /* Terracotta / Burnt Orange */
-  --secondary-hover: #B0603F;
+  --secondary: #A04A26; /* Rich high-contrast terracotta */
+  --secondary-hover: #863D1D;
   --success: #1F6E5A;
   --background: #FAF8F3; /* Warm Cream */
   --surface: #FFFFFF; /* Surface White */
@@ -16,17 +18,18 @@
 }
 
 .dark {
-  --primary: #1F6E5A;
-  --primary-hover: #2E8B73;
-  --secondary: #C9734F;
-  --success: #1F6E5A;
+  --primary: #3DA58A;
+  --primary-hover: #48BA9D;
+  --secondary: #E28864; /* Soft high-contrast terracotta */
+  --secondary-hover: #F1A484;
+  --success: #3DA58A;
   --background: #141C19; /* Warm Dark Greenish Black */
   --surface: #1E2824; /* Warm Dark Card */
   --surface-muted: #17201D;
   --text: #F5EFEB; /* Soft light text */
   --muted: #9EABA5; /* Muted grey-green text */
   --border: rgba(245, 239, 235, 0.08);
-  --glow-color: rgba(31, 110, 90, 0.2);
+  --glow-color: rgba(61, 165, 138, 0.2);
 }
 
 @theme inline {
