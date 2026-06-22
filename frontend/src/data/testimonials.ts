@@ -12,6 +12,16 @@ export const TESTIMONIALS: Testimonial[] = [
       "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop&crop=face",
   },
   {
+    name: "Michael Chen",
+    school: "Pacific Heights School",
+    designation: "Senior Teacher",
+    review:
+      "Creating lesson plans, logging grades, and communicating with parents takes half the time now. The mobile portal has really simplified my daily classroom workflow.",
+    rating: 5,
+    image:
+      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&h=150&fit=crop&crop=face",
+  },
+  {
     name: "Rajesh Kumar",
     school: "Sunrise Academy",
     designation: "Administrator",
@@ -21,14 +31,5 @@ export const TESTIMONIALS: Testimonial[] = [
     image:
       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
   },
-  {
-    name: "Michael Chen",
-    school: "Pacific Heights School",
-    designation: "School Director",
-    review:
-      "We evaluated five platforms before choosing SchoolManager. The dashboard is intuitive, support is excellent, and onboarding took less than a week.",
-    rating: 5,
-    image:
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&h=150&fit=crop&crop=face",
-  },
 ];
+

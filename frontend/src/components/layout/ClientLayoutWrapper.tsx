@@ -39,7 +39,7 @@ export function ClientLayoutWrapper({ children }: { children: React.ReactNode })
             <Link
               href="/"
               aria-label="Back to home"
-              className="flex items-center justify-center h-12 w-12 rounded-full border border-white/10 bg-[#1E2824] backdrop-blur-md text-white shadow-xl hover:shadow-2xl hover:scale-110 hover:border-white/30 hover:bg-[#141C19] active:scale-95 transition-all duration-200"
+              className="flex items-center justify-center h-12 w-12 rounded-full border border-white/15 bg-primary backdrop-blur-md text-white shadow-xl hover:shadow-2xl hover:scale-110 hover:border-white/30 hover:bg-primary-hover active:scale-95 transition-all duration-200"
             >
               <Home className="h-6 w-6 stroke-[2.5]" />
             </Link>

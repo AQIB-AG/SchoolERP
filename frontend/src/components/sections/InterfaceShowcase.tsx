@@ -7,274 +7,192 @@ import {
   CalendarCheck,
   CreditCard,
   MessageSquare,
-  Briefcase,
-  Smartphone,
-  CheckCircle,
-  FileText,
   Search,
   Bell,
+  Sparkles,
   BookOpen,
   ArrowRight,
   TrendingUp,
-  Clock,
-  Sparkles,
-  BarChart3,
-  Mail
+  Award
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 
-type InterfaceType = "students" | "attendance" | "fees" | "parent" | "teacher" | "analytics";
+type PortalType = "admin" | "teacher" | "parent" | "student";
 
-interface InterfaceTab {
-  id: InterfaceType;
+interface Portal {
+  id: PortalType;
   label: string;
-  shortDesc: string;
   title: string;
   description: string;
 }
 
-const TABS: InterfaceTab[] = [
+const PORTALS: Portal[] = [
   {
-    id: "students",
-    label: "Student Management",
-    shortDesc: "Central student records & registry",
-    title: "Centralize student records with absolute ease.",
-    description: "Access academic registries, enrollment statuses, and demographic files from a single, responsive panel. Designed to keep pupil directories organized and secure."
+    id: "admin",
+    label: "Admin Dashboard",
+    title: "Configure policies and audit financial flows.",
+    description: "A centralized system for registrar records, invoice schedules, bulk student intake registry, and analytics audit dashboards."
   },
   {
-    id: "attendance",
-    label: "Attendance",
-    shortDesc: "Real-time daily logs & notifications",
-    title: "Track attendance logs with immediate triggers.",
-    description: "Take quick classroom roll calls or check-ins. Absences trigger instant, automated notifications to parent portals to ensure school-home alignment."
-  },
-  {
-    id: "fees",
-    label: "Fee Management",
-    shortDesc: "Billing ledgers & installment tracking",
-    title: "Simplify academic billing and receipts.",
-    description: "Generate structured term invoices, configure installments, and collect online payments. Transparent digital receipt logs eliminate administrative overhead."
+    id: "teacher",
+    label: "Teacher Dashboard",
+    title: "Lightweight toolkits built for instruction.",
+    description: "Manage grades records, classroom schedules, course syllabi, and dispatch daily attendance absence sheet indicators."
   },
   {
     id: "parent",
     label: "Parent Portal",
-    shortDesc: "Direct messaging & push notifications",
-    title: "Keep parents updated with real-time sync.",
-    description: "Provide parents with structured mobile viewports for daily updates, progress cards, fee payments, and direct text lines to educators."
+    title: "Keeping families updated on progress.",
+    description: "A dedicated mobile-responsive viewport for invoice payments, homework schedules, attendance logs, and text dialogue channels."
   },
   {
-    id: "teacher",
-    label: "Teacher Portal",
-    shortDesc: "Curriculum plans & grades registry",
-    title: "Lightweight toolkits built for instruction.",
-    description: "Empower teachers with lesson organizers, quick-grade ledgers, course schedules, and substitute coordinator boards directly on the class screen."
-  },
-  {
-    id: "analytics",
-    label: "Analytics Dashboard",
-    shortDesc: "Metrics reporting & financial charts",
-    title: "Actionable metrics at your fingertips.",
-    description: "Audit school operations through centralized KPIs. View attendance trends, fee collection projections, and class average grades instantly."
+    id: "student",
+    label: "Student Portal",
+    title: "Active learning profiles for pupils.",
+    description: "Access course materials, log homework files, track semester GPA scores, and verify test schedules."
   }
 ];
 
 const LUXURY_EASE = [0.16, 1, 0.3, 1] as const;
 
 export function InterfaceShowcase() {
-  const [activeTab, setActiveTab] = useState<InterfaceType>("students");
+  const [activeTab, setActiveTab] = useState<PortalType>("admin");
 
-  const activeData = TABS.find((t) => t.id === activeTab)!;
+  const activePortal = PORTALS.find((p) => p.id === activeTab)!;
 
-  // Render high-fidelity realistic UI screen for each portal mockup
-  const renderScreenMockup = (id: InterfaceType) => {
-    switch (id) {
-      case "students":
+  const renderDashboardMockup = () => {
+    switch (activeTab) {
+      case "admin":
         return (
-          <div className="w-full bg-surface border border-border/80 rounded-2xl shadow-xl p-5 flex flex-col gap-4 dark:bg-[#1E2824]/95">
-            {/* Mockup Header */}
-            <div className="flex items-center justify-between pb-3 border-b border-border/30">
+          <div className="w-full bg-white dark:bg-[#151F21] border border-border/80 dark:border-white/10 rounded-2xl p-5 flex flex-col gap-4 shadow-xl">
+            <div className="flex items-center justify-between pb-3 border-b border-border/30 dark:border-white/5">
               <div className="flex items-center gap-2">
                 <div className="h-2.5 w-2.5 rounded-full bg-primary" />
-                <span className="text-[10px] font-bold uppercase tracking-wider text-text">Student Registry</span>
+                <span className="text-[10px] font-black uppercase tracking-wider text-text">SchoolManager Admin</span>
               </div>
-              <div className="h-6 w-28 bg-background border border-border/40 rounded-lg flex items-center px-2 text-[8px] text-muted">
+              <div className="h-6 w-24 bg-background border border-border/60 rounded flex items-center px-2 text-[8px] text-muted">
                 <Search className="h-2.5 w-2.5 mr-1" />
-                <span>Search pupils...</span>
+                <span>Search files...</span>
               </div>
             </div>
             
-            {/* Table Mockup */}
-            <div className="flex flex-col gap-2.5">
-              {[
-                { name: "Sophia Martinez", roll: "STU-2042", grade: "Grade 11-A", status: "Active" },
-                { name: "Daniel Henderson", roll: "STU-2051", grade: "Grade 10-B", status: "Active" },
-                { name: "Eleanor Vance", roll: "STU-2060", grade: "Grade 12-A", status: "Active" },
-              ].map((student, i) => (
-                <div key={i} className="flex items-center justify-between p-2.5 rounded-xl border border-border/30 bg-background/50 hover:bg-background transition-colors">
-                  <div className="flex items-center gap-2.5">
-                    <div className="h-7 w-7 rounded-full bg-primary/10 text-primary font-bold text-[9px] flex items-center justify-center">
-                      {student.name[0]}
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="text-[10px] font-bold text-text">{student.name}</span>
-                      <span className="text-[8px] text-muted">{student.roll} &bull; {student.grade}</span>
-                    </div>
+            <div className="grid grid-cols-3 gap-3">
+              <div className="col-span-1 border-r border-border/20 pr-2 flex flex-col gap-1">
+                {["Overview", "Registrar", "Billing", "Reports"].map((label, idx) => (
+                  <span
+                    key={label}
+                    className={`text-[8.5px] font-bold p-1 rounded transition-colors ${
+                      idx === 0 ? "bg-primary/10 text-primary" : "text-muted hover:bg-background"
+                    }`}
+                  >
+                    {label}
+                  </span>
+                ))}
+              </div>
+              <div className="col-span-2 flex flex-col gap-3">
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="bg-background border border-border/30 p-2 rounded flex flex-col justify-between h-14">
+                    <span className="text-[7.5px] font-bold text-muted uppercase">Term Revenue</span>
+                    <span className="text-xs font-bold text-text">$124,850</span>
                   </div>
-                  <span className="text-[8px] bg-primary/10 text-primary px-2 py-0.5 rounded-full font-black">
-                    {student.status}
-                  </span>
+                  <div className="bg-background border border-border/30 p-2 rounded flex flex-col justify-between h-14">
+                    <span className="text-[7.5px] font-bold text-muted uppercase">Attendance Rate</span>
+                    <span className="text-xs font-bold text-primary">98.4%</span>
+                  </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        );
-      case "attendance":
-        return (
-          <div className="w-full bg-surface border border-border/80 rounded-2xl shadow-xl p-5 flex flex-col gap-4 dark:bg-[#1E2824]/95">
-            {/* Mockup Header */}
-            <div className="flex items-center justify-between pb-3 border-b border-border/30">
-              <div className="flex items-center gap-2">
-                <div className="h-2.5 w-2.5 rounded-full bg-secondary" />
-                <span className="text-[10px] font-bold uppercase tracking-wider text-text">Roll Call Sheet</span>
-              </div>
-              <span className="text-[8px] font-black text-secondary px-2 py-0.5 rounded bg-secondary/10">Today</span>
-            </div>
-
-            {/* Attendance checklist */}
-            <div className="flex flex-col gap-2.5">
-              {[
-                { name: "Sophia Martinez", status: "Present", color: "text-primary bg-primary/10 border-primary/20" },
-                { name: "Daniel Henderson", status: "Present", color: "text-primary bg-primary/10 border-primary/20" },
-                { name: "Eleanor Vance", status: "Absent (Alerted)", color: "text-secondary bg-secondary/10 border-secondary/20" },
-              ].map((s, i) => (
-                <div key={i} className="flex items-center justify-between p-2.5 rounded-xl border border-border/30 bg-background/50">
-                  <span className="text-[10px] font-bold text-text">{s.name}</span>
-                  <span className={`text-[8px] font-extrabold px-2 py-0.5 rounded-full border ${s.color}`}>
-                    {s.status}
-                  </span>
+                <div className="bg-background border border-border/30 p-2 rounded flex flex-col gap-1.5">
+                  <span className="text-[8px] font-bold text-text">Invoiced Ledger</span>
+                  <div className="h-6 flex items-end gap-1">
+                    {[35, 60, 45, 90, 75].map((h, i) => (
+                      <div key={i} className="flex-1 bg-primary/20 rounded-t-xs h-full" style={{ height: `${h}%` }} />
+                    ))}
+                  </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        );
-      case "fees":
-        return (
-          <div className="w-full bg-surface border border-border/80 rounded-2xl shadow-xl p-5 flex flex-col gap-4 dark:bg-[#1E2824]/95">
-            <div className="flex items-center justify-between pb-3 border-b border-border/30">
-              <div className="flex items-center gap-2">
-                <div className="h-2.5 w-2.5 rounded-full bg-accent" />
-                <span className="text-[10px] font-bold uppercase tracking-wider text-text">Collections Ledger</span>
-              </div>
-              <span className="text-[9px] font-serif font-black text-text">$14,250 Pending</span>
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <div className="bg-background/50 border border-border/30 p-3 rounded-xl flex items-center justify-between">
-                <div className="flex flex-col">
-                  <span className="text-[9px] font-bold text-text">Sophia Martinez</span>
-                  <span className="text-[7.5px] text-muted">Term 3 Tuition Fee</span>
-                </div>
-                <span className="text-[8px] font-extrabold text-primary bg-primary/10 border border-primary/20 px-2 py-0.5 rounded-full">PAID</span>
-              </div>
-              <div className="bg-background/50 border border-border/30 p-3 rounded-xl flex items-center justify-between">
-                <div className="flex flex-col">
-                  <span className="text-[9px] font-bold text-text">Daniel Henderson</span>
-                  <span className="text-[7.5px] text-muted">Lab Science Fee</span>
-                </div>
-                <span className="text-[8px] font-extrabold text-secondary bg-secondary/10 border border-secondary/20 px-2 py-0.5 rounded-full">PENDING</span>
-              </div>
-            </div>
-          </div>
-        );
-      case "parent":
-        return (
-          <div className="w-64 bg-surface border-4 border-border rounded-[28px] shadow-2xl p-4 flex flex-col gap-3.5 dark:bg-[#1E2824]/95 mx-auto relative overflow-hidden" style={{ aspectRatio: "9/16" }}>
-            <div className="flex justify-between items-center px-1 text-[7.5px] font-bold text-muted border-b border-border/20 pb-2">
-              <span>Parent Portal App</span>
-              <span>100% Charged</span>
-            </div>
-
-            {/* Notification alert */}
-            <div className="bg-background border border-border/30 rounded-xl p-2.5 flex flex-col gap-1.5 shadow-sm mt-1">
-              <div className="flex items-center gap-1.5 text-[7px] font-bold text-secondary">
-                <Bell className="h-2.5 w-2.5" />
-                <span>ABSENCE ALERT</span>
-              </div>
-              <p className="text-[8.5px] font-bold text-text leading-tight">Eleanor Vance marked absent today.</p>
-              <span className="text-[7px] text-primary font-black mt-0.5">Acknowledge Alert</span>
-            </div>
-
-            {/* Chat Box */}
-            <div className="bg-background border border-border/30 rounded-xl p-2.5 flex flex-col gap-2.5 shadow-sm">
-              <div className="flex items-center gap-1 text-[7px] font-bold text-primary">
-                <MessageSquare className="h-2.5 w-2.5" />
-                <span>Mrs. Jenkins (Grade 11 Advisor)</span>
-              </div>
-              <div className="bg-primary/5 rounded-lg p-2 text-[8px] text-text font-medium leading-snug">
-                Sophia scored 95% on the chemistry assignment today!
               </div>
             </div>
           </div>
         );
       case "teacher":
         return (
-          <div className="w-full bg-surface border border-border/80 rounded-2xl shadow-xl p-5 flex flex-col gap-4 dark:bg-[#1E2824]/95">
-            <div className="flex items-center justify-between pb-3 border-b border-border/30">
+          <div className="w-full bg-white dark:bg-[#151F21] border border-border/80 dark:border-white/10 rounded-2xl p-5 flex flex-col gap-4 shadow-xl">
+            <div className="flex items-center justify-between pb-3 border-b border-border/30 dark:border-white/5">
               <div className="flex items-center gap-2">
-                <div className="h-2.5 w-2.5 rounded-full bg-primary" />
-                <span className="text-[10px] font-bold uppercase tracking-wider text-text">Class Schedule</span>
+                <div className="h-2.5 w-2.5 rounded-full bg-secondary" />
+                <span className="text-[10px] font-black uppercase tracking-wider text-text">Teacher Dashboard</span>
               </div>
-              <span className="text-[8.5px] font-bold px-2 py-0.5 rounded bg-primary/10 text-primary">Teacher View</span>
+              <span className="text-[8px] bg-secondary/15 text-secondary border border-secondary/20 px-2 py-0.5 rounded font-black">Class 11-A</span>
             </div>
-
+            
             <div className="flex flex-col gap-2">
+              <div className="flex justify-between items-center text-[8px] font-bold text-muted border-b border-border/10 pb-1">
+                <span>STUDENT LOG</span>
+                <span>STATUS</span>
+              </div>
               {[
-                { time: "09:00 AM", subject: "Algebra II", room: "Room 102", status: "Active" },
-                { time: "10:30 AM", subject: "Physics I", room: "Science Lab C", status: "Next" },
-              ].map((c, i) => (
-                <div key={i} className="p-2.5 rounded-xl border border-border/30 bg-background/50 flex items-center justify-between">
-                  <div className="flex flex-col">
-                    <span className="text-[9.5px] font-bold text-text">{c.subject}</span>
-                    <span className="text-[7.5px] text-muted">{c.time} &bull; {c.room}</span>
-                  </div>
-                  <span className={`text-[7.5px] font-extrabold px-2 py-0.5 rounded ${c.status === "Active" ? "bg-primary/10 text-primary" : "bg-muted/10 text-muted"}`}>
-                    {c.status}
-                  </span>
+                { name: "Sophia Martinez", status: "Present", color: "text-primary bg-primary/10" },
+                { name: "Daniel Henderson", status: "Present", color: "text-primary bg-primary/10" },
+                { name: "Eleanor Vance", status: "Absent", color: "text-secondary bg-secondary/10" },
+              ].map((s, i) => (
+                <div key={i} className="flex justify-between items-center p-2 rounded-lg border border-border/20 bg-background/50">
+                  <span className="text-[9.5px] font-bold text-text">{s.name}</span>
+                  <span className={`text-[7.5px] font-black px-2 py-0.5 rounded-full ${s.color}`}>{s.status}</span>
                 </div>
               ))}
             </div>
           </div>
         );
-      case "analytics":
+      case "parent":
         return (
-          <div className="w-full bg-surface border border-border/80 rounded-2xl shadow-xl p-5 flex flex-col gap-4 dark:bg-[#1E2824]/95">
-            <div className="flex items-center justify-between pb-3 border-b border-border/30">
+          <div className="w-60 bg-white dark:bg-[#151F21] border-4 border-border rounded-[28px] shadow-xl p-4 flex flex-col gap-3 mx-auto relative overflow-hidden" style={{ aspectRatio: "9/16" }}>
+            <div className="flex justify-between items-center px-1 text-[7px] font-bold text-muted border-b border-border/20 pb-2">
+              <span>Parent Portal App</span>
+              <span>100% Charged</span>
+            </div>
+            
+            <div className="bg-background border border-border/30 rounded-xl p-2.5 flex flex-col gap-1 mt-1 shadow-sm">
+              <span className="text-[7.5px] font-bold text-secondary uppercase">ABSENCE ALERT</span>
+              <p className="text-[8.5px] font-bold text-text leading-tight">Eleanor Vance marked absent today.</p>
+              <span className="text-[7px] text-primary font-black mt-1">Acknowledge Alert</span>
+            </div>
+
+            <div className="bg-background border border-border/30 rounded-xl p-2.5 flex flex-col gap-2 shadow-sm">
+              <span className="text-[7.5px] font-bold text-primary uppercase">MESSAGE SUMMARY</span>
+              <div className="bg-primary/5 rounded-lg p-2 text-[8px] text-text font-medium leading-snug">
+                Sophia scored 95% on the chemistry assignment today!
+              </div>
+            </div>
+          </div>
+        );
+      case "student":
+        return (
+          <div className="w-full bg-white dark:bg-[#151F21] border border-border/80 dark:border-white/10 rounded-2xl p-5 flex flex-col gap-4 shadow-xl">
+            <div className="flex items-center justify-between pb-3 border-b border-border/30 dark:border-white/5">
               <div className="flex items-center gap-2">
                 <div className="h-2.5 w-2.5 rounded-full bg-primary" />
-                <span className="text-[10px] font-bold uppercase tracking-wider text-text">Analytics Report</span>
+                <span className="text-[10px] font-black uppercase tracking-wider text-text">Student Portal</span>
               </div>
-              <Sparkles className="h-3.5 w-3.5 text-primary" />
+              <span className="text-[8.5px] font-bold px-2 py-0.5 rounded bg-background border border-border/60 text-text">GPA: 3.92</span>
             </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div className="bg-background border border-border/40 p-3 rounded-xl flex flex-col justify-between h-16">
-                <span className="text-[7.5px] font-bold text-muted uppercase">Term Collections</span>
-                <span className="text-sm font-bold text-text">$124,850</span>
-              </div>
-              <div className="bg-background border border-border/40 p-3 rounded-xl flex flex-col justify-between h-16">
-                <span className="text-[7.5px] font-bold text-muted uppercase">Attendance Rate</span>
-                <span className="text-sm font-bold text-primary">98.4%</span>
-              </div>
-            </div>
-
-            <div className="bg-background border border-border/40 p-3 rounded-xl flex flex-col gap-1.5">
-              <span className="text-[8px] font-bold text-text">Revenue Growth</span>
-              <div className="h-8 flex items-end gap-1.5 pt-1">
-                {[30, 50, 40, 75, 60, 95].map((h, i) => (
-                  <div key={i} className="flex-1 bg-primary/20 rounded-t-sm h-full relative" style={{ height: `${h}%` }}>
-                    {i === 5 && <div className="absolute inset-0 bg-primary rounded-t-sm" />}
+            
+            <div className="grid grid-cols-2 gap-3.5">
+              <div className="flex flex-col gap-2">
+                <span className="text-[7.5px] font-bold text-muted uppercase">CLASSES TODAY</span>
+                {[
+                  { title: "Algebra II", time: "09:00 AM" },
+                  { title: "Physics I", time: "10:30 AM" },
+                ].map((c, i) => (
+                  <div key={i} className="p-2 rounded bg-background border border-border/20 flex flex-col">
+                    <span className="text-[9.5px] font-bold text-text">{c.title}</span>
+                    <span className="text-[7.5px] text-muted">{c.time}</span>
                   </div>
                 ))}
+              </div>
+              <div className="flex flex-col gap-2">
+                <span className="text-[7.5px] font-bold text-muted uppercase">HOMEWORK</span>
+                <div className="bg-background border border-border/20 p-2 rounded flex flex-col gap-1">
+                  <span className="text-[9.5px] font-bold text-text">Lab Report</span>
+                  <span className="text-[7.5px] text-secondary font-black">Due Tomorrow</span>
+                </div>
               </div>
             </div>
           </div>
@@ -285,88 +203,68 @@ export function InterfaceShowcase() {
   };
 
   return (
-    <section id="interface-showcase" className="py-24 md:py-32 bg-background relative overflow-hidden">
-      {/* Editorial vector lines behind showcase */}
-      <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.03] dark:opacity-[0.07] text-primary" fill="none" viewBox="0 0 1440 900" preserveAspectRatio="none">
-        <path d="M-100,300 C300,150 500,450 900,300 C1300,150 1500,550 1600,400" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M-100,650 C200,550 600,750 1000,600 C1300,500 1500,800 1600,700" stroke="currentColor" strokeWidth="1.2" strokeDasharray="5 5" />
-      </svg>
-
+    <section id="solutions" className="py-24 md:py-36 bg-white dark:bg-[#0E1516] scroll-section">
       <Container>
-        {/* Section Heading */}
-        <div className="text-center max-w-2xl mx-auto mb-16 md:mb-20">
-          <span className="text-xs font-bold tracking-widest text-secondary uppercase block mb-3">
-            INTERFACE SHOWCASE
+        
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <span className="text-xs font-bold tracking-widest text-primary uppercase block mb-3">
+            PRODUCT SHOWCASE
           </span>
-          <h2 className="font-serif text-3xl md:text-5xl font-bold tracking-tight text-text leading-tight">
-            Designed for Intuition
+          <h2 className="font-serif text-3xl md:text-5xl font-normal tracking-tight text-text leading-none">
+            Tailored roles, unified.
           </h2>
-          <p className="mt-4 text-sm md:text-base text-muted leading-relaxed font-medium">
-            Explore the clean presentation and beautiful SaaS dashboards tailored for every role in your institution.
+          <p className="mt-4 text-xs md:text-sm text-muted leading-relaxed font-semibold">
+            Observe the clean portals engineered for administrators, classroom educators, parents, and students.
           </p>
         </div>
 
-        {/* Dynamic Layout Panel */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center max-w-6xl mx-auto">
-          {/* Left Column: Tab Menu Selector */}
-          <div className="lg:col-span-5 flex flex-col gap-2 bg-surface-muted/30 border border-border/50 p-2.5 rounded-[24px]">
-            {TABS.map((tab) => (
+        {/* Tab Layout Container */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center max-w-5xl mx-auto mt-16">
+          
+          {/* Tabs Navigation */}
+          <div className="lg:col-span-4 flex flex-col gap-2 bg-[#F8FAFA] dark:bg-[#151F21]/40 border border-border/50 p-2 rounded-2xl">
+            {PORTALS.map((portal) => (
               <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className="relative w-full text-left px-4.5 py-4 rounded-[16px] text-sm font-bold transition-all flex flex-col gap-1 group cursor-pointer"
+                key={portal.id}
+                onClick={() => setActiveTab(portal.id)}
+                className="relative w-full text-left px-4 py-3 rounded-xl text-xs font-bold transition-all flex items-center justify-between group cursor-pointer"
               >
-                {/* Active Slider Background */}
-                {activeTab === tab.id && (
+                {activeTab === portal.id && (
                   <motion.div
-                    layoutId="active-interface-tab-bg"
-                    className="absolute inset-0 bg-surface border border-border/80 rounded-[16px] shadow-sm z-0"
+                    layoutId="active-showcase-tab-bg-v3"
+                    className="absolute inset-0 bg-white dark:bg-[#151F21] border border-border/60 dark:border-white/10 rounded-xl shadow-xs z-0"
                     transition={{ type: "spring", stiffness: 350, damping: 30 }}
                   />
                 )}
-                
-                <div className="relative z-10 flex items-center justify-between w-full">
-                  <span className={`transition-colors ${activeTab === tab.id ? "text-primary font-black" : "text-text"}`}>
-                    {tab.label}
-                  </span>
-                  <ArrowRight className={`h-4 w-4 transition-all ${
-                    activeTab === tab.id 
-                      ? "text-primary translate-x-0 opacity-100" 
-                      : "text-muted/0 translate-x-[-4px] opacity-0 group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-text/60"
-                  }`} />
-                </div>
-                <span className={`relative z-10 text-xs font-medium transition-colors ${activeTab === tab.id ? "text-muted font-bold" : "text-muted/70"}`}>
-                  {tab.shortDesc}
+                <span className={`relative z-10 transition-colors ${activeTab === portal.id ? "text-primary font-black" : "text-muted hover:text-text"}`}>
+                  {portal.label}
                 </span>
+                <ArrowRight className={`h-3 w-3 relative z-10 transition-all ${
+                  activeTab === portal.id ? "text-primary opacity-100 translate-x-0" : "opacity-0 translate-x-[-2px]"
+                }`} />
               </button>
             ))}
           </div>
 
-          {/* Right Column: Layered Stack Mockup Viewport */}
-          <div className="lg:col-span-7 flex justify-center items-center relative min-h-[420px] md:min-h-[500px]">
-            {/* Visual stacked offset mockups in background */}
-            <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
-              <div className="absolute w-[95%] h-[85%] border border-border/40 rounded-2xl bg-surface/20 shadow-sm rotate-[2deg] translate-x-4 translate-y-4 z-0 scale-[0.97]" />
-              <div className="absolute w-[95%] h-[85%] border border-border/40 rounded-2xl bg-surface/10 shadow-sm rotate-[-2deg] -translate-x-4 -translate-y-4 z-0 scale-[0.95]" />
-            </div>
-
-            {/* Main Interactive Screen with transition animation */}
-            <div className="w-full relative z-10 flex justify-center items-center px-4">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeTab}
-                  initial={{ opacity: 0, y: 15, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -15, scale: 0.98 }}
-                  transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                  className="w-full flex justify-center"
-                >
-                  {renderScreenMockup(activeTab)}
-                </motion.div>
-              </AnimatePresence>
-            </div>
+          {/* Tab Viewer panel */}
+          <div className="lg:col-span-8 flex justify-center items-center min-h-[300px]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.4, ease: LUXURY_EASE }}
+                className="w-full max-w-md"
+              >
+                {renderDashboardMockup()}
+              </motion.div>
+            </AnimatePresence>
           </div>
+
         </div>
+
       </Container>
     </section>
   );

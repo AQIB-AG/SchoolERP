@@ -2,33 +2,34 @@ import type { BlogPost } from "@/types";
 
 export const BLOG_POSTS: BlogPost[] = [
   {
-    title: "5 Ways to Improve Parent Engagement in Schools",
-    category: "Best Practices",
-    image:
-      "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&h=400&fit=crop",
-    slug: "improve-parent-engagement",
-    excerpt:
-      "Discover proven strategies to keep parents informed and involved in their children's education.",
-    date: "May 28, 2026",
-  },
-  {
-    title: "Digital Transformation: A Guide for School Administrators",
+    title: "Digital Transformation in Schools",
     category: "Technology",
     image:
-      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=600&h=400&fit=crop",
-    slug: "digital-transformation-guide",
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&h=400&fit=crop",
+    slug: "digital-transformation-in-schools",
     excerpt:
-      "Step-by-step roadmap for moving from paper-based processes to a modern school management system.",
-    date: "May 15, 2026",
+      "A guide for school administrators on adopting digital infrastructure to streamline classroom workflows and paperless operations.",
+    date: "June 18, 2026",
   },
   {
-    title: "How Real-Time Attendance Tracking Reduces Absenteeism",
-    category: "Insights",
+    title: "Improving Parent-School Communication",
+    category: "Communication",
     image:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&h=400&fit=crop",
-    slug: "attendance-tracking-absenteeism",
+      "https://images.unsplash.com/photo-1543269865-cbf427effbad?w=600&h=400&fit=crop",
+    slug: "improving-parent-school-communication",
     excerpt:
-      "Learn how automated alerts and analytics help schools identify and address attendance patterns early.",
-    date: "April 30, 2026",
+      "Learn how proactive communication channels and real-time portal updates keep parents engaged and build stronger trust.",
+    date: "June 10, 2026",
+  },
+  {
+    title: "Benefits of School ERP Automation",
+    category: "Automation",
+    image:
+      "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&h=400&fit=crop",
+    slug: "benefits-of-school-erp-automation",
+    excerpt:
+      "Explore how automating grading, attendance records, and billing cycles saves hundreds of hours for school staff.",
+    date: "June 02, 2026",
   },
 ];
+

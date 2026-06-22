@@ -3,7 +3,7 @@ import { ThemeProvider } from "@/components/shared/ThemeProvider";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/constants/site";
 import "./globals.css";
 
-import { Plus_Jakarta_Sans, Playfair_Display } from "next/font/google";
+import { Plus_Jakarta_Sans, Outfit } from "next/font/google";
 
 const sans = Plus_Jakarta_Sans({
   variable: "--font-sans",
@@ -11,7 +11,7 @@ const sans = Plus_Jakarta_Sans({
   display: "swap",
 });
 
-const serif = Playfair_Display({
+const serif = Outfit({
   variable: "--font-serif",
   subsets: ["latin"],
   display: "swap",

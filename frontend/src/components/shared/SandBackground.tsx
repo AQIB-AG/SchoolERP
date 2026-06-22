@@ -45,14 +45,14 @@ export function SandBackground() {
       const isDark = theme === "dark";
       const colors = isDark
         ? [
-            "rgba(46, 139, 115, 0.25)", // Forest Green
-            "rgba(201, 115, 79, 0.2)",   // Terracotta
-            "rgba(217, 164, 65, 0.15)",  // Gold
+            "rgba(44, 175, 176, 0.25)",  // Primary Teal
+            "rgba(124, 200, 199, 0.2)",   // Secondary Teal
+            "rgba(216, 238, 238, 0.15)",  // Accent Mint
           ]
         : [
-            "rgba(31, 110, 90, 0.15)",   // Forest Green
-            "rgba(201, 115, 79, 0.15)",  // Terracotta
-            "rgba(217, 164, 65, 0.12)",  // Gold
+            "rgba(44, 175, 176, 0.15)",   // Primary Teal
+            "rgba(124, 200, 199, 0.15)",  // Secondary Teal
+            "rgba(216, 238, 238, 0.12)",  // Accent Mint
           ];
       return colors[Math.floor(Math.random() * colors.length)];
     };

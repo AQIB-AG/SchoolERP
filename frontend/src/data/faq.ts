@@ -22,8 +22,24 @@ export const FAQS: FAQItem[] = [
       "Yes. SchoolManager uses bank-grade encryption, regular security audits, and complies with data protection standards. All data is stored on secure cloud infrastructure with daily backups.",
   },
   {
+    question: "Can we customize school report cards?",
+    answer:
+      "Yes, report card templates are fully customizable. You can configure custom grading scales, add school logos, and write custom feedback notes for each subject.",
+  },
+  {
+    question: "What payment methods are supported for fee payments?",
+    answer:
+      "SchoolManager supports standard digital payment channels including credit/debit cards, bank transfers, and mobile wallets. All transactions are securely processed and automatically logged in your finance dashboard.",
+  },
+  {
+    question: "Is there a mobile app for teachers?",
+    answer:
+      "Yes, our mobile portal is fully responsive and optimized for teachers, enabling them to mark attendance, log exam scores, and view schedules on any device.",
+  },
+  {
     question: "Can I upgrade later?",
     answer:
       "You can upgrade or downgrade your plan at any time. Changes take effect immediately, and we'll prorate any billing adjustments.",
   },
 ];
+

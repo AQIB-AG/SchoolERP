@@ -1,8 +1,8 @@
 import type { StatItem } from "@/types";
 
 export const TRUST_STATS: StatItem[] = [
-  { value: 10000, suffix: "+", label: "Students Empowered" },
-  { value: 500, suffix: "+", label: "Partner Schools" },
-  { value: 98, suffix: "%", label: "Parent Satisfaction" },
-  { value: 50, suffix: "+", label: "Cities Reached" },
+  { value: 500, suffix: "+", label: "Schools" },
+  { value: 50000, suffix: "+", label: "Students" },
+  { value: 5000, suffix: "+", label: "Teachers" },
+  { value: 98, suffix: "%", label: "Satisfaction" },
 ];

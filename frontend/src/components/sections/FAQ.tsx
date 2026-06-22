@@ -1,94 +1,76 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus } from "lucide-react";
 import { FAQS } from "@/data/faq";
 import { Container } from "@/components/ui/Container";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 
 const LUXURY_EASE = [0.16, 1, 0.3, 1] as const;
 
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
-  const sectionRef = useRef<HTMLDivElement>(null);
 
   const toggle = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent, index: number) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      toggle(index);
-    }
-  };
-
   return (
-    <section id="faq" ref={sectionRef} className="py-24 md:py-32 bg-background relative overflow-hidden">
-      {/* Handcrafted Editorial SVG Organic Wave Curves */}
-      <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.02] dark:opacity-[0.06] text-primary" fill="none" viewBox="0 0 1440 800" preserveAspectRatio="none">
-        <path d="M100,-100 C300,200 100,500 400,900" stroke="currentColor" strokeWidth="1.2" />
-        <path d="M150,-100 C350,200 150,500 450,900" stroke="currentColor" strokeWidth="1.2" strokeDasharray="4 4" />
-        <path d="M1200,-100 C1000,300 1300,500 1100,900" stroke="currentColor" strokeWidth="1.2" />
-        <path d="M1250,-100 C1050,300 1350,500 1150,900" stroke="currentColor" strokeWidth="1.2" strokeDasharray="4 4" />
-      </svg>
-      {/* Background soft glow */}
-      <div className="absolute top-[40%] left-[-15%] w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
+    <section id="faq" className="py-24 md:py-36 bg-white dark:bg-[#0E1516] scroll-section">
+      <Container>
+        
+        {/* Section Header */}
+        <div className="max-w-2xl mb-16 md:mb-24">
+          <span className="text-xs font-bold tracking-widest text-primary uppercase block mb-3">
+            QUESTIONS & ANSWERS
+          </span>
+          <h2 className="font-serif text-3xl md:text-5xl font-normal tracking-tight text-text leading-none">
+            Frequently Asked Questions
+          </h2>
+        </div>
 
-      <Container className="relative z-10">
-        <SectionHeading title="Frequently Asked Questions" />
-
-        {/* Minimalist divider-style FAQ Accordion */}
-        <div className="mx-auto max-w-3xl mt-16 md:mt-20 border-t border-border/60">
+        {/* Minimal Accordion List */}
+        <div className="max-w-3xl border-t border-border/60">
           {FAQS.map((faq, index) => {
             const isOpen = openIndex === index;
 
             return (
-              <div
-                key={faq.question}
-                className="border-b border-border/60 py-6 transition-all duration-300"
-              >
+              <div key={faq.question} className="border-b border-border/60 py-6 transition-all duration-300">
                 <button
                   type="button"
                   onClick={() => toggle(index)}
-                  onKeyDown={(e) => handleKeyDown(e, index)}
                   className="flex w-full items-center justify-between gap-6 text-left focus:outline-none cursor-pointer group"
                   aria-expanded={isOpen}
-                  aria-controls={`faq-answer-${index}`}
-                  id={`faq-question-${index}`}
+                  id={`faq-question-v2-${index}`}
                 >
-                  <span className={`text-base md:text-lg font-bold transition-colors duration-250 ${
+                  <span className={`text-sm md:text-base font-bold transition-colors ${
                     isOpen ? "text-primary" : "text-text hover:text-primary"
                   }`}>
                     {faq.question}
                   </span>
                   
-                  {/* Premium plus rotating toggle */}
+                  {/* Rotating plus symbol */}
                   <motion.div
                     animate={{ rotate: isOpen ? 135 : 0 }}
-                    transition={{ duration: 0.4, ease: LUXURY_EASE }}
-                    className={`h-8 w-8 rounded-full border border-border/80 flex items-center justify-center shrink-0 transition-colors ${
+                    transition={{ duration: 0.3, ease: LUXURY_EASE }}
+                    className={`h-7 w-7 rounded-full border border-border flex items-center justify-center shrink-0 ${
                       isOpen ? "bg-primary/5 border-primary text-primary" : "text-muted group-hover:border-primary group-hover:text-primary"
                     }`}
                   >
-                    <Plus className="h-4 w-4" />
+                    <Plus className="h-3.5 w-3.5" />
                   </motion.div>
                 </button>
 
                 <AnimatePresence initial={false}>
                   {isOpen && (
                     <motion.div
-                      id={`faq-answer-${index}`}
-                      role="region"
-                      aria-labelledby={`faq-question-${index}`}
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.35, ease: LUXURY_EASE }}
+                      transition={{ duration: 0.3, ease: LUXURY_EASE }}
                       className="overflow-hidden"
                     >
-                      <div className="pt-4 pr-12 text-sm md:text-base text-muted font-medium leading-relaxed max-w-2xl">
+                      <div className="pt-4 pr-12 text-xs md:text-sm text-muted leading-relaxed font-semibold max-w-2xl">
                         {faq.answer}
                       </div>
                     </motion.div>
@@ -98,6 +80,7 @@ export function FAQ() {
             );
           })}
         </div>
+
       </Container>
     </section>
   );

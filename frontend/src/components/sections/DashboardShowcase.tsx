@@ -102,7 +102,7 @@ export function DashboardShowcase() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -15 }}
             transition={{ duration: 0.65, ease: LUXURY_EASE }}
-            className="w-full bg-surface border border-border/70 rounded-[28px] shadow-2xl p-5 flex flex-col gap-4 dark:bg-[#1E2824]/90 relative"
+            className="w-full bg-surface border border-border/70 rounded-[28px] shadow-2xl p-5 flex flex-col gap-4 dark:bg-[#151F21]/90 relative"
           >
             {/* Window header */}
             <div className="flex items-center justify-between pb-3 border-b border-border/30">
@@ -190,7 +190,7 @@ export function DashboardShowcase() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -15 }}
             transition={{ duration: 0.65, ease: LUXURY_EASE }}
-            className="w-full bg-surface border border-border/70 rounded-[28px] shadow-2xl p-5 flex flex-col gap-4 dark:bg-[#1E2824]/90 relative"
+            className="w-full bg-surface border border-border/70 rounded-[28px] shadow-2xl p-5 flex flex-col gap-4 dark:bg-[#151F21]/90 relative"
           >
             {/* Window header */}
             <div className="flex items-center justify-between pb-3 border-b border-border/30">
@@ -267,7 +267,7 @@ export function DashboardShowcase() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -15 }}
             transition={{ duration: 0.65, ease: LUXURY_EASE }}
-            className="w-full max-w-[340px] bg-surface border-4 border-border/80 rounded-[32px] shadow-2xl p-4 flex flex-col gap-4 dark:bg-[#1E2824]/90 mx-auto relative overflow-hidden"
+            className="w-full max-w-[340px] bg-surface border-4 border-border/80 rounded-[32px] shadow-2xl p-4 flex flex-col gap-4 dark:bg-[#151F21]/90 mx-auto relative overflow-hidden"
             style={{ aspectRatio: "9/16" }}
           >
             {/* Mobile status bar mockup */}
@@ -356,7 +356,7 @@ export function DashboardShowcase() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -15 }}
             transition={{ duration: 0.65, ease: LUXURY_EASE }}
-            className="w-full bg-surface border border-border/70 rounded-[28px] shadow-2xl p-5 flex flex-col gap-4 dark:bg-[#1E2824]/90 relative"
+            className="w-full bg-surface border border-border/70 rounded-[28px] shadow-2xl p-5 flex flex-col gap-4 dark:bg-[#151F21]/90 relative"
           >
             {/* Window header */}
             <div className="flex items-center justify-between pb-3 border-b border-border/30">
