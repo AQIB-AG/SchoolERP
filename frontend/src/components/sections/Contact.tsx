@@ -54,7 +54,7 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 md:py-36 bg-[#F8FAFA] dark:bg-[#0E1516]/50 scroll-section">
+    <section id="contact" className="py-24 md:py-32 premium-gradient border-y border-border/40 dark:border-white/5 scroll-section">
       <Container>
         
         {/* Section Header */}
@@ -73,7 +73,7 @@ export function Contact() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch max-w-5xl mx-auto">
           
           {/* Info Details Left Column */}
-          <div className="lg:col-span-5 flex flex-col justify-center gap-8 bg-white dark:bg-[#151F21] p-8 rounded-2xl border border-border/80 dark:border-white/10 shadow-xs">
+          <div className="lg:col-span-5 flex flex-col justify-center gap-8 bg-white/80 dark:bg-[#151F21]/80 backdrop-blur-md p-8 rounded-2xl border border-white/50 dark:border-white/10 shadow-xs">
             <div>
               <span className="text-[10px] font-black text-primary uppercase tracking-widest block mb-2">
                 Inquiries
@@ -98,7 +98,7 @@ export function Contact() {
           </div>
 
           {/* Form Box Right Column */}
-          <div className="lg:col-span-7 bg-white dark:bg-[#151F21] border border-border/80 dark:border-white/10 p-8 rounded-2xl flex flex-col justify-center min-h-[400px] shadow-xs">
+          <div className="lg:col-span-7 bg-white/80 dark:bg-[#151F21]/80 backdrop-blur-md border border-white/50 dark:border-white/10 p-8 rounded-2xl flex flex-col justify-center min-h-[400px] shadow-xs">
             <AnimatePresence mode="wait">
               {!isSuccess ? (
                 <motion.form

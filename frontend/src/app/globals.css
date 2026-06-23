@@ -75,3 +75,24 @@
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
+/* Premium soft pastel gradient background for targeted sections */
+.premium-gradient {
+  background: linear-gradient(
+    135deg,
+    #E5D0FF 0%,
+    #CCE3FF 35%,
+    #FAD1E8 70%,
+    #BFF5F0 100%
+  ) !important;
+}
+
+.dark .premium-gradient {
+  background: linear-gradient(
+    135deg,
+    #231B30 0%,
+    #162232 35%,
+    #2E1B27 70%,
+    #102925 100%
+  ) !important;
+}
+

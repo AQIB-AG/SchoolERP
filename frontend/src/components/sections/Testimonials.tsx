@@ -10,7 +10,7 @@ const LUXURY_EASE = [0.16, 1, 0.3, 1] as const;
 
 export function Testimonials() {
   return (
-    <section id="about" className="py-24 md:py-36 bg-[#F8FAFA] dark:bg-[#0E1516]/50 scroll-section">
+    <section id="about" className="py-24 md:py-32 premium-gradient border-y border-border/40 dark:border-white/5 scroll-section">
       <Container>
         
         {/* Section Header */}
@@ -37,7 +37,7 @@ export function Testimonials() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: idx * 0.1, ease: LUXURY_EASE }}
                 whileHover={{ y: -4, transition: { duration: 0.25, ease: "easeOut" } }}
-                className="flex flex-col justify-between bg-white dark:bg-[#151F21] border border-border/80 dark:border-white/10 p-8 rounded-2xl shadow-xs relative hover:shadow-md transition-all duration-300"
+                className="flex flex-col justify-between bg-white/80 dark:bg-[#151F21]/80 backdrop-blur-md border border-white/50 dark:border-white/10 p-8 rounded-2xl shadow-xs relative hover:shadow-md transition-all duration-300"
               >
                 <div>
                   {/* Rating Stars */}

@@ -25,7 +25,7 @@ const LUXURY_EASE = [0.16, 1, 0.3, 1] as const;
 
 export function HowItWorks() {
   return (
-    <section className="py-24 bg-white dark:bg-[#121A1C] border-y border-border/40 dark:border-white/5 scroll-section">
+    <section className="py-24 md:py-32 premium-gradient border-y border-border/40 dark:border-white/5 scroll-section">
       <Container>
         
         {/* Section Header */}
@@ -58,7 +58,7 @@ export function HowItWorks() {
                 className="flex flex-col items-center md:items-start text-center md:text-left relative z-10"
               >
                 {/* Step badge */}
-                <div className="h-10 w-10 rounded-full bg-white dark:bg-[#151F21] border-2 border-primary text-primary font-bold text-xs flex items-center justify-center mb-6 shadow-xs">
+                <div className="h-10 w-10 rounded-full bg-white/80 dark:bg-[#151F21]/80 backdrop-blur-xs border-2 border-primary text-primary font-bold text-xs flex items-center justify-center mb-6 shadow-xs">
                   {step.num}
                 </div>
                 
