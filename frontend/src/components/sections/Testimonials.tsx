@@ -9,8 +9,11 @@ import { Container } from "@/components/ui/Container";
 const LUXURY_EASE = [0.16, 1, 0.3, 1] as const;
 
 export function Testimonials() {
+  // Duplicate testimonials list to make the infinite loop visually seamless
+  const doubledTestimonials = [...TESTIMONIALS, ...TESTIMONIALS];
+
   return (
-    <section id="about" className="py-24 md:py-32 premium-gradient border-y border-border/40 dark:border-white/5 scroll-section">
+    <section id="about" className="py-24 md:py-32 premium-gradient border-y border-border/40 dark:border-white/5 scroll-section overflow-hidden">
       <Container>
         
         {/* Section Header */}
@@ -26,59 +29,64 @@ export function Testimonials() {
           </p>
         </div>
 
-        {/* Static Card Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch">
-          {TESTIMONIALS.map((testimonial, idx) => {
+      </Container>
+
+      {/* Infinite Horizontal Marquee - Moved outside Container to enable full-width edge-to-edge layout */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: LUXURY_EASE }}
+        className="marquee-container w-full py-4 relative"
+      >
+        <div className="animate-marquee items-stretch">
+          {doubledTestimonials.map((testimonial, idx) => {
             return (
-              <motion.div
-                key={testimonial.name}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: idx * 0.1, ease: LUXURY_EASE }}
-                whileHover={{ y: -4, transition: { duration: 0.25, ease: "easeOut" } }}
-                className="flex flex-col justify-between bg-white/80 dark:bg-[#151F21]/80 backdrop-blur-md border border-white/50 dark:border-white/10 p-8 rounded-2xl shadow-xs relative hover:shadow-md transition-all duration-300"
-              >
-                <div>
-                  {/* Rating Stars */}
-                  <div className="flex gap-1 text-primary mb-6">
-                    {Array.from({ length: testimonial.rating }).map((_, i) => (
-                      <Star key={i} className="h-4 w-4 fill-current stroke-current" />
-                    ))}
-                  </div>
-
-                  {/* Review Text */}
-                  <p className="text-xs md:text-sm font-semibold text-text/90 leading-relaxed italic mb-8">
-                    &ldquo;{testimonial.review}&rdquo;
-                  </p>
-                </div>
-
-                {/* Author Info */}
-                <div className="flex items-center gap-4 border-t border-border/40 dark:border-white/5 pt-6 mt-auto">
-                  <div className="relative h-10 w-10 shrink-0 rounded-full overflow-hidden border border-border/40">
-                    <Image
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      fill
-                      className="object-cover"
-                      sizes="40px"
-                    />
-                  </div>
+              <div key={idx} className="px-3 md:px-4 shrink-0 flex">
+                <motion.div
+                  whileHover={{ y: -4, transition: { duration: 0.25, ease: "easeOut" } }}
+                  className="flex flex-col justify-between w-[290px] md:w-[380px] bg-white/80 dark:bg-[#151F21]/80 backdrop-blur-md border border-white/50 dark:border-white/10 p-8 rounded-2xl shadow-xs relative hover:shadow-md transition-all duration-300"
+                >
                   <div>
-                    <h4 className="text-xs font-bold text-text leading-none">
-                      {testimonial.name}
-                    </h4>
-                    <p className="text-[9px] text-muted font-bold uppercase tracking-wider mt-1.5 leading-none">
-                      {testimonial.designation} &bull; <span className="text-primary">{testimonial.school}</span>
+                    {/* Rating Stars */}
+                    <div className="flex gap-1 text-primary mb-6">
+                      {Array.from({ length: testimonial.rating }).map((_, i) => (
+                        <Star key={i} className="h-4 w-4 fill-current stroke-current" />
+                      ))}
+                    </div>
+
+                    {/* Review Text */}
+                    <p className="text-xs md:text-sm font-semibold text-text/90 leading-relaxed italic mb-8">
+                      &ldquo;{testimonial.review}&rdquo;
                     </p>
                   </div>
-                </div>
-              </motion.div>
+
+                  {/* Author Info */}
+                  <div className="flex items-center gap-4 border-t border-border/40 dark:border-white/5 pt-6 mt-auto">
+                    <div className="relative h-10 w-10 shrink-0 rounded-full overflow-hidden border border-border/40">
+                      <Image
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        fill
+                        className="object-cover"
+                        sizes="40px"
+                      />
+                    </div>
+                    <div className="text-left">
+                      <h4 className="text-xs font-bold text-text leading-none">
+                        {testimonial.name}
+                      </h4>
+                      <p className="text-[9px] text-muted font-bold uppercase tracking-wider mt-1.5 leading-none">
+                        {testimonial.designation} &bull; <span className="text-primary">{testimonial.school}</span>
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
             );
           })}
         </div>
-
-      </Container>
+      </motion.div>
     </section>
   );
 }

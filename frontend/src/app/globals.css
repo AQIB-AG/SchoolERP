@@ -96,3 +96,35 @@
   ) !important;
 }
 
+/* Infinite Horizontal Marquee */
+@keyframes marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.marquee-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 25s linear infinite;
+  will-change: transform;
+}
+
+@media (min-width: 768px) {
+  .animate-marquee {
+    animation-duration: 35s;
+  }
+}
+
+.marquee-container:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
