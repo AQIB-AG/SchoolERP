@@ -170,7 +170,7 @@ export function Pricing() {
           >
             PRICING OPTIONS
           </span>
-          <h2 className="font-serif text-3xl md:text-5xl font-normal tracking-tight text-text leading-none">
+          <h2 className="font-serif text-3xl md:text-5xl font-normal tracking-tight text-text dark:text-[#000000] leading-none">
             Simple pricing.
           </h2>
           <p className="mt-4 text-xs md:text-sm text-muted leading-relaxed font-semibold">
@@ -183,8 +183,8 @@ export function Pricing() {
           <span
             className={`text-xs font-bold transition-all duration-300 ${
               !isYearly
-                ? "text-slate-800 dark:text-slate-100 scale-105"
-                : "text-muted"
+                ? "text-slate-800 dark:text-[#000000] scale-105"
+                : "text-muted dark:text-[#000000]"
             }`}
           >
             Monthly
@@ -213,16 +213,16 @@ export function Pricing() {
           <span
             className={`text-xs font-bold transition-all duration-300 flex items-center gap-1.5 ${
               isYearly
-                ? "text-amber-600 dark:text-amber-400 scale-105"
-                : "text-muted"
+                ? "text-amber-600 dark:text-[#000000] scale-105"
+                : "text-muted dark:text-[#000000]"
             }`}
           >
             Yearly
             <span
               className={`text-[8px] font-black px-1.5 py-0.5 rounded-full uppercase transition-all duration-500 ${
                 isYearly
-                  ? "text-amber-700 dark:text-amber-300 bg-amber-500/25 shadow-sm"
-                  : "text-slate-700 dark:text-slate-300 bg-slate-200 dark:bg-slate-800/60"
+                  ? "text-amber-700 dark:text-amber-950 bg-amber-50/25 dark:bg-amber-400 shadow-sm"
+                  : "text-slate-700 dark:text-slate-900 bg-slate-200 dark:bg-slate-300"
               }`}
             >
               Save 20%

@@ -66,25 +66,25 @@ const BENEFITS = [
   {
     title: "Save Administrative Time",
     description: "Automate repetitive administrative duties like scheduling, class assignments, and admissions to free up staff time for student success.",
-    image: "/save_time.png",
+    image: "/save_time.jpg",
     tag: "Efficiency"
   },
   {
     title: "Reduce Paperwork",
     description: "Move all pupil directory files, student report cards, fee tracking charts, and enrollments online to eliminate physical paperwork directories.",
-    image: "/reduce_paperwork.png",
+    image: "/reduce_paperwork.jpg",
     tag: "Digitalization"
   },
   {
     title: "Improve Parent Engagement",
     description: "Provide real-time messaging circular alerts, fee collection reminders, and grading ledger updates directly to parent and family screens.",
-    image: "/parent_engagement.png",
+    image: "/parent_engagement.jpg",
     tag: "Engagement"
   },
   {
     title: "Real-Time Reporting",
     description: "Instantly compile student enrollment statistics, class average marks, payment collection metrics, and daily check-in histories.",
-    image: "/real_time_reporting.png",
+    image: "/real_time_reporting.jpg",
     tag: "Analytics"
   }
 ];
@@ -130,6 +130,16 @@ export function Benefits() {
         clipPath: "inset(0 0 0 0)" // Creates clipping mask boundary for fixed children
       }}
     >
+      <style>{`
+        @keyframes neonBorderSpinFast {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+        }
+        .benefit-neon-spin {
+          animation: neonBorderSpinFast 1.2s linear infinite;
+          will-change: transform;
+        }
+      `}</style>
       {/* Sentinels to trigger background color resets when scrolling outside the section bounds */}
       <motion.div 
         className="absolute top-0 left-0 right-0 h-10 pointer-events-none select-none z-0" 
@@ -178,13 +188,13 @@ export function Benefits() {
         
         {/* Section Header */}
         <div className="max-w-2xl mb-24 md:mb-32">
-          <span className="text-xs font-bold tracking-widest text-primary uppercase block mb-3" style={textShadowStyle}>
+          <span className="text-[13px] font-bold tracking-widest text-primary uppercase block mb-3" style={{ ...textShadowStyle, WebkitTextStroke: "1px rgba(0, 0, 0, 0.35)" }}>
             BENEFITS & OUTCOMES
           </span>
-          <h2 className="font-serif text-3xl md:text-5xl font-bold tracking-tight text-text leading-none" style={textShadowStyle}>
+          <h2 className="font-serif text-[33px] md:text-[53px] font-bold tracking-tight text-text leading-none" style={textShadowStyle}>
             Why schools excel.
           </h2>
-          <p className="mt-4 text-xs md:text-sm text-muted leading-relaxed font-semibold" style={textShadowStyle}>
+          <p className="mt-4 text-[13px] md:text-[15.5px] text-muted leading-relaxed font-semibold" style={textShadowStyle}>
             See how converting to an integrated school operating engine increases efficiency and parent trust.
           </p>
         </div>
@@ -209,15 +219,27 @@ export function Benefits() {
                   transition={{ duration: 0.7, ease: LUXURY_EASE }}
                   className={`lg:col-span-6 flex justify-center ${isEven ? "" : "lg:order-2"}`}
                 >
-                  {/* Highly Elevated Visual Image Container */}
-                  <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.45)] border border-white/50 dark:border-white/15 bg-white/25 dark:bg-black/20 backdrop-blur-xs">
-                    <Image
-                      src={benefit.image}
-                      alt={benefit.title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 1024px) 100vw, 550px"
+                  {/* Highly Elevated Visual Image Container with rotating neon border on hover */}
+                  <div className="relative group w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.45)] border border-white/50 dark:border-white/15 bg-white/25 dark:bg-black/20 backdrop-blur-xs">
+                    {/* Rotating Black Neon border */}
+                    <div
+                      className="benefit-neon-spin absolute pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                      style={{
+                        inset: "-100%",
+                        background: "conic-gradient(from 0deg, transparent 0%, transparent 55%, #000000 64%, #555555 70%, #000000 76%, transparent 83%)",
+                      }}
                     />
+
+                    {/* Inner image wrapper */}
+                    <div className="relative m-[3px] rounded-[13px] overflow-hidden h-[calc(100%-6px)] w-[calc(100%-6px)]">
+                      <Image
+                        src={benefit.image}
+                        alt={benefit.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 1024px) 100vw, 550px"
+                      />
+                    </div>
                   </div>
                 </motion.div>
 
@@ -229,13 +251,13 @@ export function Benefits() {
                   transition={{ duration: 0.7, ease: LUXURY_EASE, delay: 0.1 }}
                   className={`lg:col-span-6 flex flex-col gap-4 ${isEven ? "" : "lg:order-1"}`}
                 >
-                  <span className="text-[10px] font-black uppercase text-primary tracking-widest leading-none block" style={textShadowStyle}>
+                  <span className="text-[11px] font-black uppercase text-primary tracking-widest leading-none block" style={{ ...textShadowStyle, WebkitTextStroke: "1px rgba(0, 0, 0, 0.35)" }}>
                     {benefit.tag}
                   </span>
-                  <h3 className="font-serif text-2xl md:text-3.5xl font-bold text-text leading-tight" style={textShadowStyle}>
+                  <h3 className="font-serif text-[26px] md:text-[39px] font-bold text-text leading-tight" style={textShadowStyle}>
                     {benefit.title}
                   </h3>
-                  <p className="text-xs md:text-sm text-muted leading-relaxed font-semibold max-w-md" style={textShadowStyle}>
+                  <p className="text-[13px] md:text-[15.5px] text-muted leading-relaxed font-semibold max-w-md" style={textShadowStyle}>
                     {benefit.description}
                   </p>
                 </motion.div>

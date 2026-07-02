@@ -87,7 +87,7 @@ export function FixedBackgroundRevealSection({
       >
         {/* Fixed image element styled to act as background */}
         <div
-          className="fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+          className="absolute lg:fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: `url(${bgImage})`,
           }}

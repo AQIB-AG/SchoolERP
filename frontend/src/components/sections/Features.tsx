@@ -1,6 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import Image from "next/image";
+import { motion, useInView } from "framer-motion";
 import {
   GraduationCap,
   CalendarCheck,
@@ -50,19 +52,26 @@ const FEATURES = [
   },
 ];
 
-const LUXURY_EASE = [0.16, 1, 0.3, 1] as const;
-
 export function Features() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(sectionRef, { amount: 0.4, margin: "0px 0px -10% 0px", once: true });
+
   return (
     <section
+      ref={sectionRef}
       id="features"
-      className="py-24 md:py-36 relative overflow-hidden bg-cover bg-center bg-no-repeat scroll-section"
-      style={{
-        backgroundImage: "url('/features_bg.jpg')",
-      }}
+      className="py-24 md:py-36 relative overflow-hidden scroll-section"
     >
-      {/* Subtle overlay (5-10% opacity) to improve readability without hiding the background artwork */}
-      <div className="absolute inset-0 bg-white/5 dark:bg-black/8 pointer-events-none z-[0]" />
+      {/* Next.js Optimized High-quality background image with a subtle blur (2-5px / 3px) for readability */}
+      <Image
+        src="/pinterest_bg.png"
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover pointer-events-none z-0 blur-[3px] scale-[1.03]"
+      />
+      {/* Subtle overlay (5-15% opacity) to improve readability without hiding the background artwork */}
+      <div className="absolute inset-0 bg-white/10 dark:bg-black/20 pointer-events-none z-0" />
 
       {/*
         Self-contained keyframes for the neon border spinning effect.
@@ -78,131 +87,122 @@ export function Features() {
           animation: neonBorderSpin 2.2s linear infinite;
           will-change: transform;
         }
+        .feature-neon-gradient {
+          background: conic-gradient(from 0deg, transparent 0%, transparent 55%, rgba(44,175,176,0.80) 64%, rgba(124,200,199,1) 70%, rgba(44,175,176,0.80) 76%, transparent 83%);
+        }
+        .dark .feature-neon-gradient {
+          background: conic-gradient(from 0deg, transparent 0%, transparent 55%, rgba(236,72,153,0.90) 62%, rgba(255,200,220,1) 70%, rgba(236,72,153,0.90) 78%, transparent 85%) !important;
+        }
       `}</style>
 
       <Container className="relative z-10">
-        {/* ─────────────────────────────────────────────────────
-            Section Header
-            "School" word is styled editorial-large inspired by
-            Reference 1 (munnangi.com) — larger, italic, primary teal.
-            Each part is on its own line for a stacked editorial look.
-        ───────────────────────────────────────────────────── */}
-        <div className="text-center max-w-5xl mx-auto mb-20">
-          <span className="text-xs font-bold tracking-widest text-[#111827] uppercase block mb-3">
+        {/* Section Header */}
+        <div className="text-center max-w-5xl mx-auto mb-20 overflow-hidden py-2">
+          <motion.span
+            initial={{ opacity: 0, y: 25 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
+            transition={{ duration: 0.55, ease: "easeOut" }}
+            style={{ willChange: "transform, opacity" }}
+            className="text-xs font-bold tracking-widest text-[#111827] dark:text-[#000000] uppercase block mb-3"
+          >
             PLATFORM FEATURES
-          </span>
+          </motion.span>
 
-          {/*
-            Heading: all words inline on one line on desktop.
-            "School" is larger, italic, primary teal — the editorial focal word.
-            lg:whitespace-nowrap keeps the full sentence on one line on desktop.
-            On mobile the sentence wraps naturally at word boundaries.
-          */}
-          <h2
-            className="font-serif font-bold tracking-tight text-text text-3xl md:text-5xl leading-tight lg:whitespace-nowrap"
+          <motion.h2
+            initial={{ opacity: 0, y: 35, scale: 0.96 }}
+            animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 35, scale: 0.96 }}
+            transition={{ duration: 0.75, delay: 0.55, ease: "easeOut" }}
+            style={{ willChange: "transform, opacity" }}
+            className="font-serif font-bold tracking-tight text-text dark:text-[#000000] text-3xl md:text-5xl leading-tight lg:whitespace-nowrap"
           >
             Everything your{" "}
             <span
-              className="italic text-primary text-5xl md:text-7xl"
-              style={{ verticalAlign: "baseline" }}
+              className="italic text-primary text-5xl md:text-7xl antialiased"
+              style={{
+                verticalAlign: "baseline",
+                WebkitTextStroke: "1px #000000",
+                letterSpacing: "0.04em",
+              }}
             >
               School
             </span>
             {" "}needs.
-          </h2>
+          </motion.h2>
 
-          <p className="mt-6 text-xs md:text-sm text-muted leading-relaxed font-semibold max-w-xl mx-auto">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.55, delay: 1.3, ease: "easeOut" }}
+            style={{ willChange: "transform, opacity" }}
+            className="mt-6 text-xs md:text-sm text-black dark:text-white leading-relaxed font-semibold max-w-xl mx-auto"
+          >
             An integrated educational suite engineered to simplify
             administration work, eliminate paper trails, and empower parent
             trust.
-          </p>
+          </motion.p>
         </div>
 
-        {/* ─────────────────────────────────────────────────────
-            Feature Cards Grid (3 cols desktop | 2 tablet | 1 mobile)
-            Inspired by Reference 2 (WhatsApp help center):
-            – Clean white cards, generous white space
-            – Prominent icon, clear visual hierarchy
-            – Minimal and premium feel
-
-            Neon border effect:
-            – A conic-gradient div rotates continuously behind the card
-            – The 2px gap between outer clip container and inner card
-              exposes the spinning gradient as a glowing animated border
-            – opacity: 0 (hidden) → opacity: 1 (visible) on group-hover
-            – Outer box-shadow creates the soft ambient glow
-            – GPU-accelerated (CSS transform only, no JS)
-        ───────────────────────────────────────────────────── */}
+        {/* Feature Cards Grid (3 cols desktop | 2 tablet | 1 mobile) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {FEATURES.map((feature, idx) => (
-            <motion.div
-              key={feature.title}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0.7,
-                delay: idx * 0.05,
-                ease: LUXURY_EASE,
-              }}
-              /*
-                Outer container:
-                – overflow-hidden clips the spinning gradient to a rounded rect
-                – bg-border provides the default subtle 2px border colour
-                – group enables group-hover utilities on children
-                – transition-shadow for smooth glow fade-in/out
-              */
-              className="
-                relative group rounded-2xl overflow-hidden
-                bg-border dark:bg-white/10
-                transition-shadow duration-300
-                hover:shadow-[0_0_32px_rgba(44,175,176,0.18),0_0_12px_rgba(44,175,176,0.10)]
-              "
-            >
-              {/*
-                Neon spinning gradient layer.
-                Positioned at inset-[-100%] so it's a large square centered
-                behind the card. When rotated, the bright arc of the conic
-                gradient travels around the perimeter of the outer container.
-                opacity-0 → opacity-100 on hover; transitions in 200ms.
-              */}
-              <div
-                className="feature-neon-spin absolute pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                style={{
-                  inset: "-100%",
-                  background:
-                    "conic-gradient(from 0deg, transparent 0%, transparent 55%, rgba(44,175,176,0.80) 64%, rgba(124,200,199,1) 70%, rgba(44,175,176,0.80) 76%, transparent 83%)",
+          {FEATURES.map((feature, idx) => {
+            const isTopRow = idx < 3;
+            const cardDelay = 0.15 + idx * 0.15;
+
+            return (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, x: isTopRow ? "-100vw" : "100vw" }}
+                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: isTopRow ? "-100vw" : "100vw" }}
+                transition={{
+                  duration: 1.2,
+                  delay: cardDelay,
+                  ease: [0.215, 0.61, 0.355, 1], // easeOutCubic
                 }}
-              />
+                style={{ willChange: "transform, opacity" }}
+                className="
+                  relative group rounded-2xl overflow-hidden
+                  bg-border dark:bg-white/10
+                  transition-shadow duration-300
+                  hover:shadow-[0_0_32px_rgba(44,175,176,0.18),0_0_12px_rgba(44,175,176,0.10)]
+                  dark:hover:shadow-[0_0_40px_rgba(236,72,153,0.6),0_0_20px_rgba(236,72,153,0.3)]
+                "
+              >
+                {/* Neon spinning gradient layer */}
+                <div
+                  className="feature-neon-spin feature-neon-gradient absolute pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                  style={{
+                    inset: "-100%",
+                  }}
+                />
 
-              {/*
-                Inner card — the actual white surface.
-                m-[2px] creates a 2px gap that shows the spinning gradient as
-                the animated neon border. rounded-[14px] = 16px - 2px.
-              */}
-              <div className="relative m-[2px] rounded-[14px] bg-white dark:bg-[#151F21] p-7 lg:p-8 h-full flex flex-col">
-                {/* Feature number — subtle premium watermark */}
-                <span className="absolute top-5 right-6 text-[10px] font-black text-border dark:text-white/10 tabular-nums tracking-wider select-none">
-                  {String(idx + 1).padStart(2, "0")}
-                </span>
+                {/* Inner card */}
+                <div className="relative m-[2px] dark:m-[3px] rounded-[14px] dark:rounded-[13px] bg-white dark:bg-[#151F21] p-7 lg:p-8 h-full flex flex-col">
+                  {/* Feature number */}
+                  <span className="absolute top-5 right-6 text-[10px] font-black text-border dark:text-white/10 tabular-nums tracking-wider select-none">
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
 
-                {/* Icon container — teal tint bg, brightens on hover */}
-                <div className="h-11 w-11 rounded-xl bg-primary/10 dark:bg-primary/15 text-primary flex items-center justify-center mb-6 transition-colors duration-300 group-hover:bg-primary/20 dark:group-hover:bg-primary/25">
-                  <feature.icon className="h-5 w-5" />
+                  {/* Icon container */}
+                  <div className="h-11 w-11 rounded-xl bg-primary/10 dark:bg-primary/15 text-primary flex items-center justify-center mb-6 transition-colors duration-300 group-hover:bg-primary/20 dark:group-hover:bg-primary/25">
+                    <feature.icon className="h-5 w-5" />
+                  </div>
+
+                  {/* Feature title */}
+                  <h3 className="text-[0.9rem] font-bold text-text mb-2.5 transition-colors duration-300 group-hover:text-primary leading-tight">
+                    {feature.title}
+                  </h3>
+
+                  {/* Feature description */}
+                  <p 
+                    className="text-xs font-semibold leading-relaxed"
+                    style={{ color: "#DE5E5E" }}
+                  >
+                    {feature.description}
+                  </p>
                 </div>
-
-                {/* Feature title — turns primary on hover */}
-                <h3 className="text-[0.9rem] font-bold text-text mb-2.5 transition-colors duration-300 group-hover:text-primary leading-tight">
-                  {feature.title}
-                </h3>
-
-                {/* Feature description */}
-                <p className="text-xs font-semibold text-muted leading-relaxed">
-                  {feature.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </Container>
     </section>

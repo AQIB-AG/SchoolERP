@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 
 const STEPS = [
@@ -21,40 +22,62 @@ const STEPS = [
   }
 ];
 
-const LUXURY_EASE = [0.16, 1, 0.3, 1] as const;
-
 export function HowItWorks() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(sectionRef, { amount: 0.45, margin: "0px 0px -15% 0px", once: true });
+
   return (
-    <section className="py-24 md:py-32 premium-gradient border-y border-border/40 dark:border-white/5 scroll-section">
+    <section ref={sectionRef} className="py-24 md:py-32 premium-gradient border-y border-border/40 dark:border-white/5 scroll-section overflow-hidden">
       <Container>
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-20">
-          <span className="text-xs font-bold tracking-widest text-primary uppercase block mb-3">
+        <div className="text-center max-w-2xl mx-auto mb-20 overflow-hidden py-1">
+          <motion.span
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            style={{ willChange: "transform, opacity", WebkitTextStroke: "1px rgba(0,0,0,0.3)" }}
+            className="text-xs font-bold tracking-widest text-primary uppercase block mb-3"
+          >
             ONBOARDING WORKFLOW
-          </span>
-          <h2 className="font-serif text-3xl md:text-5xl font-normal tracking-tight text-text leading-none">
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            style={{ willChange: "transform, opacity" }}
+            className="font-serif text-3xl md:text-5xl font-normal tracking-tight text-text leading-none"
+          >
             How it works.
-          </h2>
-          <p className="mt-4 text-xs md:text-sm text-muted leading-relaxed font-semibold">
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            style={{ willChange: "transform, opacity" }}
+            className="mt-4 text-xs md:text-sm text-muted leading-relaxed font-semibold"
+          >
             Follow a simplified setup sequence designed to transition your school onto a modern operations engine.
-          </p>
+          </motion.p>
         </div>
 
         {/* Horizontal Timeline Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-5xl mx-auto relative pt-8">
           
           {/* Connector line for desktop viewports */}
-          <div className="absolute top-[52px] inset-x-12 h-[1px] bg-border/80 dark:bg-white/10 hidden md:block z-0" />
+          <div className="absolute top-[52px] inset-x-12 h-[1px] bg-black/30 dark:bg-white/10 hidden md:block z-0" />
 
           {STEPS.map((step, idx) => {
+            const stepDelays = [0.25, 0.90, 1.55];
+            const stepDelay = stepDelays[idx];
+
             return (
               <motion.div
                 key={step.num}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: idx * 0.08, ease: LUXURY_EASE }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.65, delay: stepDelay, ease: "easeOut" }}
+                style={{ willChange: "transform, opacity" }}
                 className="flex flex-col items-center md:items-start text-center md:text-left relative z-10"
               >
                 {/* Step badge */}

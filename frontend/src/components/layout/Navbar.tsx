@@ -100,7 +100,7 @@ export function Navbar() {
                   "text-sm font-semibold transition-colors duration-200",
                   isActive 
                     ? "text-primary font-bold" 
-                    : "text-muted hover:text-primary"
+                    : "text-[#111827] dark:text-[#F8FAFA] hover:text-primary dark:hover:text-primary"
                 )}
               >
                 {link.label}
@@ -114,7 +114,7 @@ export function Navbar() {
           <ThemeToggle />
           <Link
             href="/book-demo"
-            className="text-xs font-bold border border-border/80 text-text hover:bg-surface-muted px-4 py-2.5 rounded-full transition-all"
+            className="text-xs font-bold border-2 border-[#000000] text-text hover:bg-surface-muted px-4 py-2.5 rounded-full transition-all"
           >
             Book Demo
           </Link>
@@ -149,7 +149,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-x-0 top-[64px] bottom-0 z-40 bg-background/95 backdrop-blur-lg lg:hidden flex flex-col p-8 border-t border-border/40 shadow-xl"
+            className="fixed inset-x-0 top-[64px] bottom-0 z-40 bg-[#F8FAFA] dark:bg-[#0E1516] backdrop-blur-lg lg:hidden flex flex-col p-8 border-t border-border/40 shadow-xl overflow-y-auto"
           >
             <div className="flex flex-col gap-5 max-w-md mx-auto w-full mt-6">
               {NAV_LINKS.map((link) => {
@@ -172,7 +172,7 @@ export function Navbar() {
                 <Link 
                   href="/book-demo" 
                   onClick={handleNavClick} 
-                  className="border border-border text-center text-text font-bold py-3 rounded-full"
+                  className="border-2 border-[#000000] text-center text-text font-bold py-3 rounded-full"
                 >
                   Book Demo
                 </Link>
