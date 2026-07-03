@@ -22,9 +22,9 @@ A premium, highly-optimized, and beautiful SaaS monorepo landing page for **Scho
 
 ---
 
-## 🔗 Live Demo
+## 🌐 Live Demo
 
-> 🌐 Deployed Version: [https://a-pied.vercel.app](https://a-pied.vercel.app) *(or configure your deployment url in your host)*
+https://school-erp-alpha-pied.vercel.app
 
 ---
 
@@ -158,7 +158,7 @@ This landing page has been heavily debugged and optimized for mobile devices (`i
 
 | Desktop View | Mobile View |
 | ------------ | ----------- |
-| ![Hero Desktop Preview](https://placehold.co/800x450/151f21/ffffff?text=SchoolManager+Desktop+Preview) | ![Mobile View Preview](https://placehold.co/360x640/151f21/ffffff?text=SchoolManager+Mobile+Preview) |
+| ![Desktop View](desktopview.jpeg) | ![Mobile View](mobileview.jpeg) |
 
 *Additional screenshot placeholders for sections:*
 * **Features Section** (Conic Neon Borders)
@@ -196,9 +196,9 @@ Distributed under the MIT License. See `LICENSE` or file directory for details.
 
 ---
 
-## 👤 Author
+## 👨‍💻 Author
 
-* **Mohd Aqib**
-  * GitHub: [@aqib-dev](https://github.com/) *(or link placeholder)*
-  * LinkedIn: [Mohd Aqib](https://linkedin.com/)
-  * Portfolio: [Developer Portfolio](https://github.com/)
+### Aqib Abdul Ghaffar
+
+- GitHub: https://github.com/AQIB-AG
+- LinkedIn: https://www.linkedin.com/in/aqib-abdul-ghaffar-497047302
