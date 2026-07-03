@@ -211,7 +211,7 @@ export function Footer() {
               <Link
                 key={i}
                 href={resource.href}
-                className="flex items-center justify-between p-4 rounded-xl bg-white/[0.02] border border-white/5 md:hover:bg-white/[0.05] md:hover:border-white/10 md:hover:shadow-sm md:transition-all md:duration-300 group cursor-pointer"
+                className="flex items-center justify-between p-4 rounded-xl bg-[#131C1E] border border-[#1E292B] md:bg-white/[0.02] md:border-white/5 md:hover:bg-white/[0.05] md:hover:border-white/10 md:hover:shadow-sm md:transition-all md:duration-300 group cursor-pointer"
               >
                 <span className="text-xs font-bold text-gray-300 md:group-hover:text-primary transition-colors pr-2 leading-snug">
                   {resource.label}
