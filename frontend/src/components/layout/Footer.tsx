@@ -211,12 +211,12 @@ export function Footer() {
               <Link
                 key={i}
                 href={resource.href}
-                className="flex items-center justify-between p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:border-white/10 hover:shadow-sm transition-all duration-300 group cursor-pointer"
+                className="flex items-center justify-between p-4 rounded-xl bg-white/[0.02] border border-white/5 md:hover:bg-white/[0.05] md:hover:border-white/10 md:hover:shadow-sm md:transition-all md:duration-300 group cursor-pointer"
               >
-                <span className="text-xs font-bold text-gray-300 group-hover:text-primary transition-colors pr-2 leading-snug">
+                <span className="text-xs font-bold text-gray-300 md:group-hover:text-primary transition-colors pr-2 leading-snug">
                   {resource.label}
                 </span>
-                <ArrowUpRight className="h-3.5 w-3.5 text-gray-500 group-hover:text-primary transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 shrink-0" />
+                <ArrowUpRight className="h-3.5 w-3.5 text-gray-500 md:group-hover:text-primary md:transition-all md:duration-300 md:group-hover:-translate-y-0.5 md:group-hover:translate-x-0.5 shrink-0" />
               </Link>
             ))}
           </div>
