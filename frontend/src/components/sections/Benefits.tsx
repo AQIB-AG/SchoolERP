@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useTheme } from "next-themes";
@@ -95,6 +95,18 @@ export function Benefits() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const { resolvedTheme } = useTheme();
   const [activeIndex, setActiveIndex] = useState(0); // 0 = Default, 1 = Teal, 2 = Lavender, 3 = Peach, 4 = Sky Blue
+  const [isMobile, setIsMobile] = useState(false);
+  const [hasHydrated, setHasHydrated] = useState(false);
+
+  useEffect(() => {
+    setHasHydrated(true);
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const LIGHT_COLORS = [
     "#F8FAFA", // Default background
@@ -209,13 +221,13 @@ export function Benefits() {
                 key={benefit.title}
                 className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center"
                 onViewportEnter={() => setActiveIndex(idx + 1)}
-                viewport={{ margin: "-30% 0px -30% 0px" }} // Triggers change immediately when card enters the viewport center
+                viewport={{ margin: isMobile ? "-10% 0px -10% 0px" : "-30% 0px -30% 0px" }} // Triggers change immediately when card enters the viewport center
               >
                 {/* Visual Image Column */}
                 <motion.div
                   initial={{ opacity: 0, y: 15 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
+                  viewport={{ once: true, margin: isMobile ? "-20px" : "-100px" }}
                   transition={{ duration: 0.7, ease: LUXURY_EASE }}
                   className={`lg:col-span-6 flex justify-center ${isEven ? "" : "lg:order-2"}`}
                 >
@@ -247,8 +259,8 @@ export function Benefits() {
                 <motion.div
                   initial={{ opacity: 0, y: 15 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.7, ease: LUXURY_EASE, delay: 0.1 }}
+                  viewport={{ once: true, margin: isMobile ? "-20px" : "-100px" }}
+                  transition={{ duration: 0.7, ease: LUXURY_EASE, delay: isMobile ? 0.05 : 0.1 }}
                   className={`lg:col-span-6 flex flex-col gap-4 ${isEven ? "" : "lg:order-1"}`}
                 >
                   <span className="text-[11px] font-black uppercase text-primary tracking-widest leading-none block" style={{ ...textShadowStyle, WebkitTextStroke: "1px rgba(0, 0, 0, 0.35)" }}>

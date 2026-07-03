@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import {
@@ -55,6 +55,19 @@ const FEATURES = [
 export function Features() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { amount: 0.1, margin: "0px 0px -10% 0px", once: true });
+
+  const [isMobile, setIsMobile] = useState(false);
+  const [hasHydrated, setHasHydrated] = useState(false);
+
+  useEffect(() => {
+    setHasHydrated(true);
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   return (
     <section
@@ -146,17 +159,22 @@ export function Features() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {FEATURES.map((feature, idx) => {
             const isTopRow = idx < 3;
-            const cardDelay = 0.15 + idx * 0.15;
+            const cardDelay = isMobile ? (0.1 + idx * 0.1) : (0.15 + idx * 0.15);
+            const initialX = !hasHydrated 
+              ? (isTopRow ? "-100vw" : "100vw") 
+              : (isMobile 
+                  ? (isTopRow ? -30 : 30) 
+                  : (isTopRow ? "-100vw" : "100vw"));
 
             return (
               <motion.div
                 key={feature.title}
-                initial={{ opacity: 0, x: isTopRow ? "-100vw" : "100vw" }}
-                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: isTopRow ? "-100vw" : "100vw" }}
+                initial={{ opacity: 0, x: initialX }}
+                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: initialX }}
                 transition={{
-                  duration: 1.2,
+                  duration: isMobile ? 0.6 : 1.2,
                   delay: cardDelay,
-                  ease: [0.215, 0.61, 0.355, 1], // easeOutCubic
+                  ease: isMobile ? "easeOut" : [0.215, 0.61, 0.355, 1], // easeOutCubic
                 }}
                 style={{ willChange: "transform, opacity" }}
                 className="

@@ -66,13 +66,22 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed top-0 inset-x-0 z-[100] transition-all duration-300 w-full",
+        "fixed top-0 inset-x-0 z-[100] transition-all duration-300 w-full h-16 lg:h-auto flex items-center lg:block",
         scrolled 
-          ? "py-3 bg-white/90 dark:bg-[#121A1C]/90 backdrop-blur-md border-b border-border/60 dark:border-white/10 shadow-xs" 
-          : "py-5 bg-transparent"
+          ? "py-0 lg:py-3" 
+          : "py-0 lg:py-5 bg-transparent"
       )}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
+      {/* Background layer with blur to prevent containing block issue on parent */}
+      <div 
+        className={cn(
+          "absolute inset-0 z-[-1] transition-all duration-300",
+          scrolled 
+            ? "bg-white/90 dark:bg-[#121A1C]/90 backdrop-blur-md border-b border-border/60 dark:border-white/10 shadow-xs" 
+            : "bg-transparent pointer-events-none"
+        )}
+      />
+      <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between w-full">
         
         {/* Left Side: Logo */}
         <Link

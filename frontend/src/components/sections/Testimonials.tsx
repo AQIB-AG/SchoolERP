@@ -54,7 +54,7 @@ export function Testimonials() {
             return (
               <div key={idx} className="px-3 md:px-4 shrink-0 flex">
                 <div
-                  className="relative group flex flex-col justify-between w-[290px] md:w-[380px] bg-white/80 dark:bg-[#151F21]/80 backdrop-blur-md border border-white/50 dark:border-white/10 rounded-2xl shadow-xs hover:shadow-md transition-all duration-300 overflow-hidden"
+                  className="relative group flex flex-col justify-between w-[290px] md:w-[380px] bg-white/80 dark:bg-[#151F21]/80 md:backdrop-blur-md border border-white/50 dark:border-white/10 rounded-2xl shadow-xs hover:shadow-md transition-all duration-300 overflow-hidden"
                 >
                   {/* Pink Rotating Neon Border (visible on hover) */}
                   <div

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 
@@ -25,6 +25,19 @@ const STEPS = [
 export function HowItWorks() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { amount: 0.1, margin: "0px 0px -15% 0px", once: true });
+
+  const [isMobile, setIsMobile] = useState(false);
+  const [hasHydrated, setHasHydrated] = useState(false);
+
+  useEffect(() => {
+    setHasHydrated(true);
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   return (
     <section ref={sectionRef} className="py-24 md:py-32 premium-gradient border-y border-border/40 dark:border-white/5 scroll-section overflow-hidden">
@@ -69,7 +82,7 @@ export function HowItWorks() {
 
           {STEPS.map((step, idx) => {
             const stepDelays = [0.25, 0.90, 1.55];
-            const stepDelay = stepDelays[idx];
+            const stepDelay = isMobile ? (0.1 + idx * 0.15) : stepDelays[idx];
 
             return (
               <motion.div

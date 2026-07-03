@@ -21,6 +21,7 @@ export function Hero() {
   const { resolvedTheme } = useTheme();
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [hasHydrated, setHasHydrated] = useState(false);
 
   useEffect(() => {
     // Continuous background image crossfading (visible 6 seconds)
@@ -31,6 +32,7 @@ export function Hero() {
   }, []);
 
   useEffect(() => {
+    setHasHydrated(true);
     // Detect mobile viewport for reduced motion distance
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -50,36 +52,41 @@ export function Hero() {
         transition={{ duration: 1.2, ease: "easeOut" }}
         className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none"
       >
-        {BACKGROUND_IMAGES.map((src, index) => (
-          <motion.div
-            key={src}
-            className="absolute -inset-4 w-[calc(100%+32px)] h-[calc(100%+32px)]"
-            initial={{ opacity: 0 }}
-            animate={index === currentBgIndex ? { 
-              opacity: 1,
-              scale: 1.04,
-              x: ["0%", "0.6%", "-0.6%", "0%"],
-              y: ["0%", "-0.6%", "0.6%", "0%"]
-            } : { 
-              opacity: 0,
-              scale: 1.0,
-              x: "0%",
-              y: "0%"
-            }}
-            transition={{ 
-              opacity: { duration: 1.5, ease: "easeInOut" },
-              scale: { duration: 6.5, ease: "easeOut" },
-              x: { duration: 25, ease: "easeInOut", repeat: Infinity },
-              y: { duration: 25, ease: "easeInOut", repeat: Infinity }
-            }}
-            style={{
-              backgroundImage: `url(${src})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              filter: "blur(2.5px)"
-            }}
-          />
-        ))}
+        {BACKGROUND_IMAGES.map((src, index) => {
+          const runHeavyAnimation = hasHydrated && !isMobile;
+          return (
+            <motion.div
+              key={src}
+              className="absolute -inset-4 w-[calc(100%+32px)] h-[calc(100%+32px)]"
+              initial={{ opacity: 0 }}
+              animate={index === currentBgIndex ? { 
+                opacity: 1,
+                scale: runHeavyAnimation ? 1.04 : 1.0,
+                x: runHeavyAnimation ? ["0%", "0.6%", "-0.6%", "0%"] : "0%",
+                y: runHeavyAnimation ? ["0%", "-0.6%", "0.6%", "0%"] : "0%"
+              } : { 
+                opacity: 0,
+                scale: 1.0,
+                x: "0%",
+                y: "0%"
+              }}
+              transition={runHeavyAnimation ? { 
+                opacity: { duration: 1.5, ease: "easeInOut" },
+                scale: { duration: 6.5, ease: "easeOut" },
+                x: { duration: 25, ease: "easeInOut", repeat: Infinity },
+                y: { duration: 25, ease: "easeInOut", repeat: Infinity }
+              } : {
+                opacity: { duration: 1.5, ease: "easeInOut" }
+              }}
+              style={{
+                backgroundImage: `url(${src})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                filter: "blur(2.5px)"
+              }}
+            />
+          );
+        })}
         
         {/* Soft readability overlay: Very light 12% white overlay in light mode, slight dark overlay in dark mode */}
         <div className="absolute inset-0 bg-white/12 dark:bg-[#0E1516]/30 transition-colors duration-500" />
@@ -100,7 +107,7 @@ export function Hero() {
             
             {/* Small Badge */}
             <motion.div
-              initial={{ opacity: 0, x: isMobile ? -20 : -50 }}
+              initial={{ opacity: 0, x: !hasHydrated ? -50 : (isMobile ? -20 : -50) }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, ease: "easeOut", delay: 0.05 }}
               className="inline-flex self-start items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-4.5 py-1.5 text-[9px] font-black tracking-widest text-teal-900 dark:text-primary mb-6 uppercase shadow-xs"
@@ -111,7 +118,7 @@ export function Hero() {
 
             {/* Large Bold Heading */}
             <motion.h1
-              initial={{ opacity: 0, x: isMobile ? -30 : -80, scale: 0.96 }}
+              initial={{ opacity: 0, x: !hasHydrated ? -80 : (isMobile ? -30 : -80), scale: 0.96 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.3, ease: LUXURY_EASE }}
               className="font-serif text-[42px] sm:text-[52px] md:text-[62px] font-extrabold leading-[1.05] tracking-tight text-[#0F172A] dark:text-[#F8FAFA]"
@@ -122,7 +129,7 @@ export function Hero() {
 
             {/* Supporting Paragraph */}
             <motion.p
-              initial={{ opacity: 0, x: isMobile ? -20 : -50 }}
+              initial={{ opacity: 0, x: !hasHydrated ? -50 : (isMobile ? -20 : -50) }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.55, ease: LUXURY_EASE }}
               className="mt-6 text-sm md:text-base text-[#334155] dark:text-slate-200 leading-relaxed font-medium"
@@ -132,7 +139,7 @@ export function Hero() {
 
             {/* CTA Buttons */}
             <motion.div
-              initial={{ opacity: 0, y: isMobile ? 15 : 25 }}
+              initial={{ opacity: 0, y: !hasHydrated ? 25 : (isMobile ? 15 : 25) }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 1.3, ease: "easeOut" }}
               className="mt-8 flex flex-wrap gap-4 items-center"
@@ -155,7 +162,7 @@ export function Hero() {
 
           {/* Right Column: Dashboard Preview mockup */}
           <motion.div
-            initial={{ opacity: 0, x: isMobile ? 30 : 120, scale: 0.96 }}
+            initial={{ opacity: 0, x: !hasHydrated ? 120 : (isMobile ? 30 : 120), scale: 0.96 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.75, ease: LUXURY_EASE }}
             className="lg:col-span-7 flex justify-center items-center"
