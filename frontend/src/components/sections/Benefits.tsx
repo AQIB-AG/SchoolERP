@@ -155,7 +155,7 @@ export function Benefits() {
       />
 
       {/* Persistent Fixed Background Canvas Layer (inspired by Morweb) */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none select-none z-0" aria-hidden="true">
+      <div className="absolute lg:fixed inset-0 overflow-hidden pointer-events-none select-none z-0" aria-hidden="true">
         {/* Top-Left Blurred Shape */}
         <div 
           className="absolute -top-[10%] -left-[10%] w-[50%] aspect-square rounded-full filter blur-[120px] opacity-[0.25] dark:opacity-[0.12] transition-colors duration-1000"

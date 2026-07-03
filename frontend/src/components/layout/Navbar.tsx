@@ -66,7 +66,7 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed top-0 inset-x-0 z-50 transition-all duration-300 w-full",
+        "fixed top-0 inset-x-0 z-[100] transition-all duration-300 w-full",
         scrolled 
           ? "py-3 bg-white/90 dark:bg-[#121A1C]/90 backdrop-blur-md border-b border-border/60 dark:border-white/10 shadow-xs" 
           : "py-5 bg-transparent"
@@ -149,7 +149,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-x-0 top-[64px] bottom-0 z-40 bg-[#F8FAFA] dark:bg-[#0E1516] backdrop-blur-lg lg:hidden flex flex-col p-8 border-t border-border/40 shadow-xl overflow-y-auto"
+            className="fixed inset-x-0 top-[64px] bottom-0 z-[90] bg-[#F8FAFA] dark:bg-[#0E1516] backdrop-blur-lg lg:hidden flex flex-col p-8 border-t border-border/40 shadow-xl overflow-y-auto"
           >
             <div className="flex flex-col gap-5 max-w-md mx-auto w-full mt-6">
               {NAV_LINKS.map((link) => {

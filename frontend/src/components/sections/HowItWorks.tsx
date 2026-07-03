@@ -24,7 +24,7 @@ const STEPS = [
 
 export function HowItWorks() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { amount: 0.45, margin: "0px 0px -15% 0px", once: true });
+  const isInView = useInView(sectionRef, { amount: 0.1, margin: "0px 0px -15% 0px", once: true });
 
   return (
     <section ref={sectionRef} className="py-24 md:py-32 premium-gradient border-y border-border/40 dark:border-white/5 scroll-section overflow-hidden">

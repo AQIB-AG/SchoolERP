@@ -54,7 +54,7 @@ const FEATURES = [
 
 export function Features() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { amount: 0.4, margin: "0px 0px -10% 0px", once: true });
+  const isInView = useInView(sectionRef, { amount: 0.1, margin: "0px 0px -10% 0px", once: true });
 
   return (
     <section
@@ -193,7 +193,7 @@ export function Features() {
                   </h3>
 
                   {/* Feature description */}
-                  <p 
+                  <p
                     className="text-xs font-semibold leading-relaxed"
                     style={{ color: "#DE5E5E" }}
                   >
